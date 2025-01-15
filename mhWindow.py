@@ -265,11 +265,12 @@ class MHWindow:
     
     def F_等待人物停止移动(self, 是否要按F9=True):
         上次坐标 = self.F_获取当前坐标()
+        time.sleep(1)
         while(True):
-            time.sleep(1)
             当前坐标 = self.F_获取当前坐标()
             if(当前坐标 != 上次坐标):
                 上次坐标 = 当前坐标
+                time.sleep(0.8)
                 continue
             else:
                 break
@@ -292,12 +293,12 @@ class MHWindow:
     
     def F_关闭道具(self):
         for i in range(10):
-            point = self.F_窗口内查找图片(IMAGES["道具栏"], confidence=0.9)
+            point = self.F_窗口内查找图片(IMAGES["道具栏"], confidence=0.8)
             if(point == None):
                 break
             else:
                 pyautogui.hotkey('alt', 'e')
-                time.sleep(0.25)
+                time.sleep(0.5)
                 break
 
     def F_使用道具(self, 道具图片, 是否行囊查找=False):
@@ -503,6 +504,43 @@ class MHWindow:
                     else:
                         pyautogui.click()
             time.sleep(2)
+            if(检查是否到达指定坐标 == False):
+                for i in range(25):
+                    point = self.F_获取小地图坐标()
+                    if(point == None or len(point) < 2):
+                        self.F_鼠标移动到窗口中心()
+                        continue
+                    当前坐标x = 0
+                    当前坐标y = 0
+                    try:
+                        当前坐标x = int(point[0])
+                        当前坐标y = int(point[1])
+                    except:
+                        continue
+                    if(目标坐标x == 当前坐标x and 目标坐标y == 当前坐标y):
+                        pyautogui.click()
+                        time.sleep(0.25)
+                        pyautogui.click()
+                        break
+                    cx = 目标坐标x - 当前坐标x
+                    cy = 当前坐标y - 目标坐标y
+                    if(isFirstMove < 2):
+                        self.utils.move(cx / 2, cy / 2)
+                        isFirstMove = isFirstMove + 1
+                    else:
+                        if(cx > 20):
+                            cx = 20
+                        elif(cx < -20):
+                            cx = -20
+                        if(cy > 10):
+                            cy = 10
+                        elif(cy < -10):
+                            cy = -10
+                        self.utils.move(cx, cy)
+                        if(abs(cx) < 20 and abs(cy) < 10):
+                            pyautogui.click()
+                        
+
             self.F_关闭小地图()
             if(是否等待人物停止移动):
                 self.F_等待人物停止移动(是否要按F9=False) 
@@ -670,9 +708,10 @@ class MHWindow:
                 pyautogui.press('tab')
                 self.F_等待人物停止移动()
                 
-                self.F_游戏光标移动到(83, 151)
+                self.F_游戏光标移动到(83, 161)
                 self.utils.click()
                 time.sleep(2)
+                self.utils.click()
             else:
                 self.F_使用飞行旗('傲来国', '女儿村', 是否检验坐标=False)
                 self.F_游戏光标移动到(83, 151)
@@ -729,9 +768,9 @@ class MHWindow:
             if(当前所在地图 == '北俱芦洲'):
                 return True
             elif(当前所在地图 == '长寿郊外'):
-                self.F_小地图寻路([64, 63])
-                time.sleep(1)
+                self.F_小地图寻路([64, 63], 是否等待人物停止移动=False)
                 self.F_游戏光标移动到(316, 178)
+                self.F_等待人物停止移动()
                 self.utils.click()
                 time.sleep(0.25)
                 # self.F_游戏光标移动到(320, 180)
@@ -776,8 +815,10 @@ class MHWindow:
             if(当前所在地图 == '女娲神迹'):
                 return True
             elif(当前所在地图 == '北俱芦洲'):
-                self.F_小地图寻路([21, 153])
+
+                self.F_小地图寻路([21, 153], 是否等待人物停止移动=False)
                 self.F_游戏光标移动到(264, 196)
+                self.F_等待人物停止移动()
                 self.utils.click()
                 time.sleep(0.25)
                 point = self.F_窗口内查找图片('window_goto2.png')
@@ -952,8 +993,9 @@ class MHWindow:
                 self.F_游戏光标移动到(370, 58)
                 self.F_等待人物停止移动()
                 self.utils.click()
-                time.sleep(2)
+                time.sleep(1)
                 self.utils.click()
+                time.sleep(1)
             else:
                 self.F_导航到大唐国境2()
         return False
@@ -1141,6 +1183,7 @@ class MHWindow:
     def F_点击主怪自动战斗(self, key=None):
         finish = False
         count = 0
+        imgPath = projectPath + "\images\\window_waring.png"
         while(finish == False):
             count = count + 1
             time.sleep(0.25)
@@ -1157,8 +1200,12 @@ class MHWindow:
                 self.utils.rightClick()
                 self.F_关闭对话()
                 while(True):
-                    # print('进入战斗')
+                    print('进入战斗')
                     time.sleep(0.25)
+                    location = pyautogui.locateOnScreen(imgPath, confidence=0.95)
+                    if(location != None):
+                        PlaySound(projectPath + "\images\\" + "wozhidao.wav", flags=1)
+                        time.sleep(15)
                     point = self.F_窗口内查找图片('window_zidong2.png')
                     if(point):
                         print('发现自动')
@@ -1170,7 +1217,7 @@ class MHWindow:
                         break
             else:
                 if(count == 3):
-                    PlaySound(projectPath + "\\" + "y913.wav", flags=1)
+                    PlaySound(projectPath + "\images\\" + "wozhidao.wav", flags=1)
 
     def F_抓鬼自动战斗(self):
         finish = False
@@ -1193,10 +1240,10 @@ class MHWindow:
                     PlaySound(projectPath + "\\" + "y913.wav", flags=1)
 
     def F_点击战斗(self):
-        point = self.F_窗口内查找图片(IMAGES['狮子队标'])
         pathMaybe = [[5, 78], [38, 78], [-20, 78], [3, 78]]
         for i in range(4):
             self.F_游戏光标移动到(574, 442)
+            point = self.F_窗口内查找图片(IMAGES['狮子队标'])
             pyautogui.hotkey('alt', 'a')
             self.utils.rightClick()
             pathMaybeItem = pathMaybe[i]
