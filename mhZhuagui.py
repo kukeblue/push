@@ -150,8 +150,8 @@ def F_去抓鬼(window, ret, 是否是大鬼=True):
         # window.F_点击主怪自动战斗('f5')
     else:
         window.F_点击战斗()
-        window.F_点击主怪自动战斗()
-        # window.F_点击主怪自动战斗('f5')
+        # window.F_点击主怪自动战斗()
+        window.F_点击主怪自动战斗('f5')
     time.sleep(0.5)
     window.F_关闭对话()
     

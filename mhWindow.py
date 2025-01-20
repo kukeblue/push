@@ -1240,33 +1240,35 @@ class MHWindow:
                     PlaySound(projectPath + "\\" + "y913.wav", flags=1)
 
     def F_点击战斗(self):
-        pathMaybe = [[5, 78], [38, 78], [-20, 78], [3, 78]]
-        for i in range(4):
-            self.F_游戏光标移动到(574, 442)
-            point = self.F_窗口内查找图片(IMAGES['狮子队标'])
+        time.sleep(1)
+        pathMaybe = [-20, -10 , 10 , 40]
+        s_point = self.F_窗口内查找图片(IMAGES['狮子队标'])
+        if(s_point != None):
+            s_point[1] = s_point[1] + 18
+            self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 42)
+            pyautogui.hotkey('alt', '7')
+            time.sleep(1)
+            point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
+            if(point):
+                print('找到！！！')
+            else:
+                self.F_游戏光标移动到(s_point[0] - 20, s_point[1] + 42)
+                for i in pathMaybe:
+                    self.F_游戏光标移动到(s_point[0] + i, s_point[1] + 42)
+                    time.sleep(1)
+                    point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
+                    if(point):
+                        print('找到！！！')
+                        break
             pyautogui.hotkey('alt', 'a')
-            self.utils.rightClick()
-            pathMaybeItem = pathMaybe[i]
-            if(point == None):
-                point = self.F_窗口内查找图片('window_zq.png')
-                if(point):
-                    point[0] = point[0] -10
-                    point[1] = point[1] -90 
-            if(point != None):
-                pyautogui.hotkey('alt', '7')
-                self.utils.rightClick()
-                self.F_游戏光标移动到(point[0]+pathMaybeItem[0],
-                               point[1] + pathMaybeItem[1])
-                time.sleep(0.25)
+            time.sleep(0.1)
+            self.utils.click()
+            time.sleep(1)
+            if(self.F_是否在战斗()):
+                return
+            else:
                 pyautogui.hotkey('alt', 'a')
-                time.sleep(0.1)
                 self.utils.click()
-                time.sleep(1)
-                if(self.F_是否在战斗()):
-                    break
-                else:
-                    pyautogui.hotkey('alt', '1')
-                    self.utils.rightClick()
     
     def F_是否结束战斗(self):
         ret = self.utils.op.FindMultiColor(
@@ -1289,6 +1291,14 @@ class MHWindow:
 
 if __name__ == "__main__":
     mhWindow = MHWindow()
+    mhWindow.F_点击战斗()
+    # while(True):
+    #     point = mhWindow.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95)
+    #     if(point):
+    #         print('找到')
+    #         break
+    #     time.sleep(1)
+        
     # print('光标位置', mhWindow.F_获取游戏光标位置())
     # print('鼠标移动到窗口中心', mhWindow.F_鼠标移动到窗口中心())
     # mhWindow.F_游戏光标移动到(409, 188)
@@ -1303,5 +1313,5 @@ if __name__ == "__main__":
     # mhWindow.F_使用飞行旗('傲来国', '女儿村', False)
     # mhWindow.F_打开小地图()
     # print(mhWindow.F_获取小地图坐标())
-    print(mhWindow.F_导航到海底迷宫())
+    # print(mhWindow.F_导航到海底迷宫())
 
