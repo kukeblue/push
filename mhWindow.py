@@ -651,6 +651,7 @@ class MHWindow:
                 self.F_游戏光标移动到(690, 507)
                 self.utils.click()
                 time.sleep(2)
+                self.utils.click()
         return False
 
     def F_导航到天宫(self):
@@ -664,9 +665,11 @@ class MHWindow:
                 if(point):
                     self.F_游戏光标移动到(point[0] + 5, point[1] + 5)
                     self.utils.click()
-                    time.sleep(0.25)
-                # self.F_游戏光标移动到(262, 224)
-                # self.utils.click()
+                    time.sleep(0.5)
+                else:
+                    self.F_游戏光标移动到(262, 224)
+                    self.utils.click()
+                    time.sleep(0.5)
                 point = self.F_窗口内查找图片('window_goto.png')
                 if(point):
                     self.F_游戏光标移动到(point[0] + 5, point[1] + 2)
@@ -693,7 +696,8 @@ class MHWindow:
                 self.F_游戏光标移动到(632, 103)
                 self.F_游戏光标移动到(723, 84)
                 self.utils.click()
-                time.sleep(2)
+                time.sleep(1.5)
+                self.utils.click()
         return False  
 
     def F_导航到女儿村(self):
@@ -707,16 +711,16 @@ class MHWindow:
                 self.utils.click()
                 pyautogui.press('tab')
                 self.F_等待人物停止移动()
-                
                 self.F_游戏光标移动到(83, 161)
                 self.utils.click()
-                time.sleep(2)
+                time.sleep(1)
                 self.utils.click()
             else:
                 self.F_使用飞行旗('傲来国', '女儿村', 是否检验坐标=False)
                 self.F_游戏光标移动到(83, 151)
                 self.utils.click()
-                time.sleep(2)
+                time.sleep(1)
+                self.utils.click()
         return False 
     
     def F_导航到麒麟山(self):
@@ -734,6 +738,7 @@ class MHWindow:
                 self.F_游戏光标移动到(35, 125)
                 self.utils.click()
                 time.sleep(2)
+                self.utils.click()
             else:
                 self.F_使用飞行旗('朱紫国', '麒麟山', 是否检验坐标=False)
                 time.sleep(0.25)
@@ -741,6 +746,7 @@ class MHWindow:
                 self.F_游戏光标移动到(35, 125)
                 self.utils.click()
                 time.sleep(2)
+                self.utils.click()
         return False
 
     def F_导航到东海湾(self):
@@ -781,6 +787,7 @@ class MHWindow:
                     self.F_游戏光标移动到(point[0] + 2, point[1] + 5)
                     self.utils.click()
                     time.sleep(0.25)
+                
             else:
                 self.F_导航到长寿郊外()
         return False
@@ -815,7 +822,6 @@ class MHWindow:
             if(当前所在地图 == '女娲神迹'):
                 return True
             elif(当前所在地图 == '北俱芦洲'):
-
                 self.F_小地图寻路([21, 153], 是否等待人物停止移动=False)
                 self.F_游戏光标移动到(264, 196)
                 self.F_等待人物停止移动()
@@ -825,7 +831,7 @@ class MHWindow:
                 if(point):
                     self.F_游戏光标移动到(point[0] + 5, point[1] + 5)
                     self.utils.click()
-                    time.sleep(2)
+                    time.sleep(1)
             else:
                 self.F_导航到北俱芦洲()
         return False
@@ -911,7 +917,7 @@ class MHWindow:
                     if(self.F_窗口内查找图片('window_goto.png')):
                         self.F_游戏光标移动到(191, 332)
                         self.utils.click()
-                        time.sleep(2)
+                        time.sleep(1)
                         return True
         print('ERROE：点击驿站老板失败')
         return False
@@ -949,7 +955,7 @@ class MHWindow:
                 self.F_小地图寻路([277, 36], 检查是否到达指定坐标=False)
                 time.sleep(0.6)
                 self.F_点击驿站老板()
-                time.sleep(0.25)
+                # time.sleep(0.25)
                 break
             else:
                 self.F_使用飞行旗('长安城', '驿站', 是否检验坐标=False)
@@ -1001,6 +1007,7 @@ class MHWindow:
         return False
      
     def F_导航到地狱迷宫三层(self):
+        self.F_使用月光()
         self.F_关闭道具()
         for x in range(5):
             当前所在地图 = self.F_获取当前地图()
@@ -1025,14 +1032,27 @@ class MHWindow:
                 self.utils.click()
                 time.sleep(2.5)
                 break
+            elif(当前所在地图 == '地狱迷宫三层'):
+                return True
             else:
                 self.F_导航到地府()
         return False
     
+    def F_使用月光(self):
+        pyautogui.press('f1')
+        time.sleep(1)
+        self.F_游戏光标移动到(221, 313)
+        self.utils.click()
+        time.sleep(1)
+        self.F_关闭对话()
+    
     def F_导航到五庄观(self):
+        是否使用飞行 = False
         for x in range(5):
             当前所在地图 = self.F_获取当前地图()
             if(当前所在地图 == '五庄观'):
+                if(是否使用飞行):
+                    pyautogui.press('f4')
                 return True
             elif(当前所在地图 == '大唐境外'):
                 pyautogui.press('tab')
@@ -1045,6 +1065,11 @@ class MHWindow:
                 self.utils.click()
                 time.sleep(2)
             elif(当前所在地图 == '大唐国境'):
+                if(是否使用飞行 == False):
+                    self.F_小地图寻路([16, 99], 检查是否到达指定坐标=True)
+                    pyautogui.press('f4')
+                    time.sleep(2)
+                    是否使用飞行 = True
                 pyautogui.press('tab')
                 self.F_游戏光标移动到(178, 412)
                 self.utils.click()
@@ -1056,7 +1081,7 @@ class MHWindow:
                 time.sleep(0.25)
                 self.F_游戏光标移动到(686, 287)
             else:
-                self.F_导航到大唐国境()
+                self.F_导航到大唐国境2()
         return False
 
     def F_导航到狮驼岭(self):
@@ -1192,17 +1217,18 @@ class MHWindow:
                     pyautogui.press('f7')
                     self.F_游戏光标移动到(275,134)
                     pyautogui.press(key)
-                    time.sleep(0.25)
+                    self.utils.click()
                     self.utils.click()
                 pyautogui.hotkey('alt', 'q')
                 pyautogui.hotkey('alt', 'q')
                 pyautogui.hotkey('alt', 'q')
                 self.utils.rightClick()
                 self.F_关闭对话()
+                self.F_游戏光标移动到(326, 449)
                 while(True):
                     print('进入战斗')
                     time.sleep(0.25)
-                    location = pyautogui.locateOnScreen(imgPath, confidence=0.95)
+                    location = pyautogui.locateOnScreen(imgPath, confidence=0.98)
                     if(location != None):
                         PlaySound(projectPath + "\images\\" + "wozhidao.wav", flags=1)
                         time.sleep(15)
@@ -1213,13 +1239,14 @@ class MHWindow:
                         pyautogui.hotkey('alt', 'q')
                         pyautogui.hotkey('alt', 'q')
                     if(self.F_是否结束战斗()):
+                        self.F_关闭对话()
                         finish = True
                         break
             else:
                 if(count == 3):
                     PlaySound(projectPath + "\images\\" + "wozhidao.wav", flags=1)
 
-    def F_抓鬼自动战斗(self):
+    def F_抓鬼自动战斗(self):   
         finish = False
         count = 0
         while(finish == False):
@@ -1244,7 +1271,7 @@ class MHWindow:
         pathMaybe = [-20, -10 , 10 , 40]
         s_point = self.F_窗口内查找图片(IMAGES['狮子队标'])
         if(s_point != None):
-            s_point[1] = s_point[1] + 18
+            s_point[1] = s_point[1] + 15
             self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 42)
             pyautogui.hotkey('alt', '7')
             time.sleep(1)
@@ -1291,7 +1318,7 @@ class MHWindow:
 
 if __name__ == "__main__":
     mhWindow = MHWindow()
-    mhWindow.F_点击战斗()
+    # mhWindow.F_导航到五庄观()
     # while(True):
     #     point = mhWindow.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95)
     #     if(point):
@@ -1313,5 +1340,5 @@ if __name__ == "__main__":
     # mhWindow.F_使用飞行旗('傲来国', '女儿村', False)
     # mhWindow.F_打开小地图()
     # print(mhWindow.F_获取小地图坐标())
-    # print(mhWindow.F_导航到海底迷宫())
+    print(mhWindow.F_导航到地狱迷宫三层())
 

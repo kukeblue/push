@@ -93,6 +93,7 @@ def F_领取大鬼任务(window):
         window.F_游戏光标移动到(373, 508)
         window.utils.click()
         time.sleep(2)
+        window.utils.click()
 
 def F_领取钟馗任务(window):
     pyautogui.press('tab')
@@ -106,13 +107,13 @@ def F_领取钟馗任务(window):
         pyautogui.hotkey('alt', 'q')
         time.sleep(1.5)
 
-    # window.F_打开道具()
-    # window.F_游戏光标移动到(269, 318)
+    window.F_打开道具()
+    window.F_游戏光标移动到(269, 318)
+    window.utils.rightClick()
+    # window.F_游戏光标移动到(643, 20)
     # window.utils.rightClick()
-    # window.F_游戏光标移动到(643, 23)
-    # window.utils.rightClick()
-    # pyautogui.press('tab')
-
+    # pyautogui.press('tab')466 565  476 481
+    window.F_关闭道具()
     for i in range(3):
         window.F_小地图寻路([52, 51], 是否等待人物停止移动=False)
         # 点击钟馗
@@ -150,8 +151,8 @@ def F_去抓鬼(window, ret, 是否是大鬼=True):
         # window.F_点击主怪自动战斗('f5')
     else:
         window.F_点击战斗()
-        # window.F_点击主怪自动战斗()
-        window.F_点击主怪自动战斗('f5')
+        window.F_点击主怪自动战斗()
+        # window.F_点击主怪自动战斗('f5')
     time.sleep(0.5)
     window.F_关闭对话()
     
