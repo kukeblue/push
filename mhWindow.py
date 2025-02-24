@@ -378,7 +378,7 @@ class MHWindow:
                     continue;
                 time.sleep(self.道具使用延时)
                 time.sleep(0.25)
-                self.F_游戏光标移动到(目的点旗子点[0], 目的点旗子点[1])
+                self.F_游戏光标移动到(目的点旗子点[0]-1, 目的点旗子点[1]+5)
                 self.utils.click()
                 if(是否检验坐标==False):
                     time.sleep(0.25)
@@ -799,14 +799,16 @@ class MHWindow:
                 return True
             elif(当前所在地图 == '花果山'):
                 self.F_小地图寻路([107, 7], 检查是否到达指定坐标=False)
+                time.sleep(2)
                 point = self.F_窗口内查找图片('window_hgs_hd.png')
                 if(point):
                     self.F_游戏光标移动到(point[0] + 7, point[1] + 2)
                     self.utils.click()
                     time.sleep(0.25)
-                # self.F_游戏光标移动到(260, 457)
-                # self.utils.click()
-                # time.sleep(0.25)
+                else:
+                    self.F_游戏光标移动到(260, 457)
+                    self.utils.click()
+                    time.sleep(0.25)
                 point = self.F_窗口内查找图片('window_goto.png')
                 if(point):
                     self.F_游戏光标移动到(point[0] + 2, point[1] + 2)
@@ -996,7 +998,7 @@ class MHWindow:
                 self.F_游戏光标移动到(224, 144)
                 self.utils.click()
                 pyautogui.press('tab')
-                self.F_游戏光标移动到(370, 58)
+                self.F_游戏光标移动到(365, 58)
                 self.F_等待人物停止移动()
                 self.utils.click()
                 time.sleep(1)
