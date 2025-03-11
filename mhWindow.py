@@ -366,10 +366,12 @@ class MHWindow:
             pointStr = self.F_获取当前坐标()
             if(目的点坐标Str in pointStr):
                 self.F_关闭道具()
+                self.F_关闭对话()
                 return True
             if(飞行点 == '飞行符传送点'):
                 self.F_使用飞行符(地图)
                 self.F_关闭道具()
+                self.F_关闭对话()
                 return True
             else:
                 ret = self.F_使用道具(IMAGES["旗子" + 地图])
@@ -386,6 +388,7 @@ class MHWindow:
                     map = self.F_获取当前地图()
                     if(map == 地图):
                         self.F_关闭道具()
+                        self.F_关闭对话()
                         return True
             time.sleep(self.道具使用延时)
         messagebox.showinfo('严重错误', 'F_使用飞行旗-' + 地图)  
@@ -635,6 +638,7 @@ class MHWindow:
             目的点 = self.F_获取旗子最近导航点(目的地, point)
         self.F_使用飞行旗(目的地, 目的点)
         self.F_关闭道具()
+        self.F_关闭对话()
 
     def F_导航到长寿郊外(self):
         for x in range(5):
@@ -755,7 +759,7 @@ class MHWindow:
             if(当前所在地图 == '东海湾'):
                 return True
             elif(当前所在地图 == '傲来国'):
-                self.F_小地图寻路([177, 20], 是否开关出入口=True)
+                self.F_小地图寻路([177, 20])
                 self.F_游戏光标移动到(218, 361)
                 self.utils.click()
                 time.sleep(0.25)
@@ -839,14 +843,15 @@ class MHWindow:
         return False
     
     def F_导航到化生寺(self):
+        ret = self.F_使用飞行旗('长安城', '化生寺', 是否检验坐标=False)
         for x in range(5):
             当前所在地图 = self.F_获取当前地图()
             if(当前所在地图 != '长安城'):
                 return True
             else:
-                ret = self.F_使用飞行旗('长安城', '化生寺', 是否检验坐标=False)
+                # ret = self.F_使用飞行旗('长安城', '化生寺', 是否检验坐标=False)
                 if(ret):
-                    self.F_游戏光标移动到(544, 67)
+                    self.F_游戏光标移动到(513, 67)
                     self.utils.click()
                     time.sleep(2)
                 else:
@@ -1207,7 +1212,9 @@ class MHWindow:
                     PlaySound(projectPath + "\\" + "y913.wav", flags=1)
 
 
-    def F_点击主怪自动战斗(self, key=None):
+
+
+    def F_点击主怪自动战斗(self, key=None, 是否关闭对话框=True):
         finish = False
         count = 0
         imgPath = projectPath + "\images\\window_waring.png"
@@ -1222,8 +1229,8 @@ class MHWindow:
                     self.utils.click()
                     self.utils.click()
                 pyautogui.hotkey('alt', 'q')
-                pyautogui.hotkey('alt', 'q')
-                pyautogui.hotkey('alt', 'q')
+                pyautogui.hotkey('alt', 'a')
+                pyautogui.hotkey('alt', 'a')
                 self.utils.rightClick()
                 self.F_关闭对话()
                 self.F_游戏光标移动到(326, 449)
@@ -1238,15 +1245,18 @@ class MHWindow:
                     if(point):
                         print('发现自动')
                         pyautogui.hotkey('alt', 'q')
-                        pyautogui.hotkey('alt', 'q')
-                        pyautogui.hotkey('alt', 'q')
+                        pyautogui.hotkey('alt', 'a')
+                        pyautogui.hotkey('alt', 'a')
                     if(self.F_是否结束战斗()):
-                        self.F_关闭对话()
+                        if(是否关闭对话框):
+                            self.F_关闭对话()
                         finish = True
                         break
             else:
                 if(count == 3):
                     PlaySound(projectPath + "\images\\" + "wozhidao.wav", flags=1)
+    def F_error(self):
+        PlaySound(projectPath + "\images\\" + "wozhidao.wav", flags=1)
 
     def F_抓鬼自动战斗(self):   
         finish = False
@@ -1267,6 +1277,41 @@ class MHWindow:
             else:
                 if(count == 3):
                     PlaySound(projectPath + "\\" + "y913.wav", flags=1)
+
+
+    def F_点击战斗2(self):
+        time.sleep(1)
+        pathMaybe = [-20, -10 , 10 , 40]
+        s_point = self.F_窗口内查找图片(IMAGES['狮子队标'])
+        if(s_point != None):
+            s_point[1] = s_point[1] + 15
+            self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 42)
+            pyautogui.hotkey('alt', '7')
+            time.sleep(1)
+            point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
+            if(point):
+                print('找到！！！')
+            else:
+                self.F_游戏光标移动到(s_point[0] - 20, s_point[1] + 42)
+                for i in pathMaybe:
+                    self.F_游戏光标移动到(s_point[0] + i, s_point[1] + 42)
+                    time.sleep(1)
+                    point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
+                    if(point):
+                        print('找到！！！')
+                        break
+            self.utils.click()
+            self.utils.click()
+            self.F_游戏光标移动到(208, 334)
+            time.sleep(0.1)
+            self.utils.click()
+            self.utils.click()
+            time.sleep(1)
+            if(self.F_是否在战斗()):
+                return
+            else:
+                self.utils.click()
+                self.utils.click()
 
     def F_点击战斗(self):
         time.sleep(1)
