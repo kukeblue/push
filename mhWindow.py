@@ -692,7 +692,7 @@ class MHWindow:
                 self.F_小地图寻路([211, 142])
                 time.sleep(0.25)
                 self.F_游戏光标移动到(632, 103)
-                self.F_游戏光标移动到(723, 84)
+                self.F_游戏光标移动到(723, 114)
                 self.utils.click()
                 time.sleep(2)
             else:

@@ -133,8 +133,6 @@ def F_领取钟馗任务(window):
                 pass
             else:
                 break
-   
-
 
 def F_开关追踪(window):
     pyautogui.hotkey('alt', 'q')
