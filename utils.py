@@ -9,7 +9,7 @@ from  fonts.index import fontConfigs
 from aip import AipOcr
 
 
-client = AipOcr('28169102', 'TlqWuTLLPyVnoMAILQQnhQU1','3T2wyhRHS7pH7euXSefHRR6gjcE1h1I2')
+client = AipOcr('28169102', 'TlqWuTLLPyVnoMAILQQnhQU1','KjuqBgCrsuPXc0ENuvZQ0ahrOsmpaYhR')
 projectPath = '.'  # 运行文件的地址
 
 
