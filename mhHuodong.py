@@ -19,7 +19,6 @@ def 女魃战斗(window):
         回合数 = 1
         print('进入战斗')
         while(True):
-            
             point = window.F_窗口内查找图片('window_zidong2.png')
             if(point):
                 print('开始自动操作')
@@ -80,16 +79,15 @@ def F_做任务(window):
         window.F_游戏光标移动到(393, 403)
         window.utils.click()
 
-    if('地府' in 任务):
-        window.F_使用飞行旗('长安城', '驿站', 是否检验坐标=False)
-        window.F_导航到地府()
-        window.F_游戏光标移动到(678, 179, 手指操作模式=True)
+    if('东海湾' in 任务):
+        window.F_导航到东海湾()
+        window.F_游戏光标移动到(698, 179, 手指操作模式=True)
         window.utils.doubleClick()
         time.sleep(2)
         window.utils.doubleClick()
         window.F_鼠标移动到窗口中心()
         window.F_等待人物停止移动()
-        window.F_游戏光标移动到(196, 338)
+        window.F_游戏光标移动到(226, 336)
         window.utils.click()
        
         point = window.F_窗口内查找图片('window_duihua_jnh.png')
@@ -107,9 +105,14 @@ def F_做任务(window):
                 break
         window.F_游戏光标移动到(393, 403)
         window.utils.click()
-    if('宝象国' in 任务):
-        window.F_使用飞行旗('宝象国', '飞行符传送点', 是否检验坐标=False)
-        window.F_游戏光标移动到(698, 175, 手指操作模式=True)
+    if('天宫' in 任务):
+        # window.F_导航到长寿郊外()
+        # pyautogui.press('f9')
+        # window.F_游戏光标移动到(314, 232)
+        # window.utils.click()
+        # time.sleep(1)
+        # window.utils.click()
+        window.F_游戏光标移动到(650, 179, 手指操作模式=True)
         window.utils.doubleClick()
         time.sleep(2)
         window.utils.doubleClick()
@@ -246,17 +249,17 @@ def F_做任务(window):
     if('江南野外' in 任务):
         window.F_使用飞行旗('长安城', '江南野外', 是否检验坐标=False)
         window.F_导航到江南野外()
-        window.F_游戏光标移动到(707, 175, 手指操作模式=True)
+        window.F_游戏光标移动到(697, 179, 手指操作模式=True)
         window.utils.doubleClick()
         time.sleep(2)
         window.utils.doubleClick()
         window.F_鼠标移动到窗口中心()
         window.F_等待人物停止移动()
-        point = window.F_窗口内查找图片('window_duihua_jnh.png')
-        if point != None:
-            window.F_游戏光标移动到(point[0] + 10, point[1] + 2)
-            window.utils.click()
-        window.F_游戏光标移动到(197, 331)
+        # point = window.F_窗口内查找图片('window_duihua_jnh.png')
+        # if point != None:
+        #     window.F_游戏光标移动到(point[0] + 10, point[1] + 2)
+        #     window.utils.click()
+        window.F_游戏光标移动到(237, 356)
         window.utils.click()
         time.sleep(2)
         while True:
@@ -269,7 +272,8 @@ def F_做任务(window):
         window.F_游戏光标移动到(393, 403)
         window.utils.click()
     
-    if('庆典舞者' in 任务):
+    if('长安酒店' in 任务):
+        ret = window.F_使用飞行旗('长安城', '酒店', 是否检验坐标=False)
         window.F_游戏光标移动到(701, 175, 手指操作模式=True)
         window.utils.doubleClick()
         time.sleep(2)
@@ -303,21 +307,24 @@ def F_识别任务(window):
 def F_领取任务(window):
     print('F_领取任务')
     window.F_使用道具('daoju_xfxq_red.png')
-    window.F_游戏光标移动到(198, 335)
+    window.F_游戏光标移动到(198, 339)
     window.utils.click()
     window.F_关闭道具()
-    window.F_游戏光标移动到(244, 285)
+    window.F_游戏光标移动到(544, 296)
     window.utils.click()
-    window.F_游戏光标移动到(231, 322)
+    window.F_游戏光标移动到(231, 357)
     window.utils.click()
     time.sleep(1)
     window.utils.click()
 
 window = mhWindow.MHWindow()
-while True:
-    time.sleep(1)
-    if(女魃战斗(window)):
-        break
-while True:
-    F_做任务(window)
-
+# window.F_导航到长寿郊外()
+F_做任务(window)
+# F_领取任务(window)
+# while True:
+#     time.sleep(1)
+#     if(女魃战斗(window)):
+#         break
+# while True:
+#     F_做任务(window)
+# F_领取任务(window)

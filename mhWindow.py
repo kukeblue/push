@@ -344,7 +344,7 @@ class MHWindow:
     def F_使用飞行符(self, 目的地):
         for i in range(10):
             if(self.F_获取当前地图() == 目的地):
-                self.F_关闭道具()
+                # self.F_关闭道具()
                 return True
             result = self.F_窗口内查找图片(IMAGES["飞行符打开界面"])
             if (result != None):
@@ -353,7 +353,8 @@ class MHWindow:
                 self.utils.click()
                 time.sleep(1.5) 
             else:
-                self.F_使用道具(IMAGES["飞行符"])   
+                # self.F_使用道具(IMAGES["飞行符"])  
+                pyautogui.press('f3') 
 
         messagebox.showinfo('严重错误', 'F_使用飞行符-' + 目的地)  
         sys.exit() 
@@ -916,7 +917,7 @@ class MHWindow:
         驿站老板图片集 =IMAGES["NPC驿站老板"]
         for x in range(4):
             for item in 驿站老板图片集:
-                驿站老板位置 = self.F_窗口内查找图片(item, confidence=0.65, area=(303, 54, 379, 197))
+                驿站老板位置 = self.F_窗口内查找图片(item, confidence=0.65)
                 if 驿站老板位置 is not None:
                     self.F_游戏光标移动到(驿站老板位置[0] + 2, 驿站老板位置[1] + 5)
                     self.utils.doubleClick()
@@ -1229,8 +1230,8 @@ class MHWindow:
                     self.utils.click()
                     self.utils.click()
                 pyautogui.hotkey('alt', 'q')
-                pyautogui.hotkey('alt', 'a')
-                pyautogui.hotkey('alt', 'a')
+                pyautogui.hotkey('alt', 'q')
+                pyautogui.hotkey('alt', 'q')
                 self.utils.rightClick()
                 self.F_关闭对话()
                 self.F_游戏光标移动到(326, 449)
@@ -1245,8 +1246,8 @@ class MHWindow:
                     if(point):
                         print('发现自动')
                         pyautogui.hotkey('alt', 'q')
-                        pyautogui.hotkey('alt', 'a')
-                        pyautogui.hotkey('alt', 'a')
+                        pyautogui.hotkey('alt', 'q')
+                        pyautogui.hotkey('alt', 'q')
                     if(self.F_是否结束战斗()):
                         if(是否关闭对话框):
                             self.F_关闭对话()
@@ -1312,6 +1313,42 @@ class MHWindow:
             else:
                 self.utils.click()
                 self.utils.click()
+
+    def F_点击战斗_lb(self):
+        time.sleep(1)
+        pathMaybe = [-20, -10 , 10 , 40]
+        s_point = self.F_窗口内查找图片(IMAGES['狮子队标'])
+        if(s_point != None):
+            s_point[1] = s_point[1] + 15
+            self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 106)
+            pyautogui.hotkey('alt', '7')
+            time.sleep(2)
+            point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.65, area=(s_point[0]-50, s_point[1]-50, 150, 100))
+            
+            if(point):
+                print('找到！！！')
+                pyautogui.hotkey('alt', 'a')
+                time.sleep(0.1)
+                self.utils.click()
+                
+            else:
+                self.F_游戏光标移动到(s_point[0] - 20, s_point[1] + 106)
+                for i in pathMaybe:
+                    self.F_游戏光标移动到(s_point[0] + i, s_point[1] + 106)
+                    time.sleep(1.5)
+                    point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
+                    if(point):
+                        print('找到！！！')
+                        break
+            pyautogui.hotkey('alt', 'a')
+            time.sleep(0.1)
+            self.utils.click()
+            time.sleep(1)
+            if(self.F_是否在战斗()):
+                return
+            else:
+                pyautogui.hotkey('alt', 'a')
+                self.utils.click()      
 
     def F_点击战斗(self):
         time.sleep(1)

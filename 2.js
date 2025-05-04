@@ -11,7 +11,7 @@ const { execSync } = require('child_process');
 const { error, Console } = require('console');
 let isExecuting = false; // 用于标记是否请求正在进行中
 let queue = []; // 队列来保存需要执行的请求
-let maxBrowserScheduler = 1c
+let maxBrowserScheduler = 1
 const jsFilePath = path.resolve(__dirname, 'shein_2.js');
 // 获取本地图片的绝对路径
 const localImagePath = path.resolve(__dirname, '1.png');
