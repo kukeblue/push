@@ -2,34 +2,80 @@ import pyautogui
 import keyboard
 import time
 
+
+
+
+
+
+def perform_actions_f5():
+    time.sleep(1)  # 延迟执行
+    for _ in range(1):
+        pyautogui.press('f5')
+    pyautogui.hotkey('ctrl', 'tab')
+
+    for _ in range(1):
+        pyautogui.press('f5')
+        
+
+    for _ in range(1):
+        pyautogui.press('f5')
+
+    pyautogui.hotkey('ctrl', 'tab')
+
+    for _ in range(1):
+        pyautogui.press('f5')
+
+    pyautogui.hotkey('ctrl', 'tab')
+
+    for _ in range(1):
+        pyautogui.press('f5')
+    pyautogui.hotkey('ctrl', 'tab')
+    for _ in range(1):
+        pyautogui.press('f5')
+    pyautogui.hotkey('ctrl', 'tab')
+
 def perform_actions():
     time.sleep(1)  # 延迟执行
     for _ in range(3):
         pyautogui.hotkey('alt', 'q')
     pyautogui.hotkey('ctrl', 'tab')
 
-    for _ in range(3):
+    for _ in range(1):
+        pyautogui.hotkey('alt', 'r')
         pyautogui.hotkey('alt', 'q')
-    pyautogui.hotkey('ctrl', 'tab')
-
-    for _ in range(2):
         pyautogui.hotkey('alt', 'q')
-        pyautogui.hotkey('alt', 'a')
+        
 
-    pyautogui.hotkey('ctrl', 'tab')
-
-    for _ in range(2):
+    for _ in range(1):
+        pyautogui.hotkey('alt', 'r')
         pyautogui.hotkey('alt', 'q')
-        pyautogui.hotkey('alt', 'a')
+        pyautogui.hotkey('alt', 'q')
 
     pyautogui.hotkey('ctrl', 'tab')
 
-    for _ in range(2):
+    for _ in range(1):
+        pyautogui.hotkey('alt', 'r')
+        
         pyautogui.hotkey('alt', 'q')
-        pyautogui.hotkey('alt', 'a')
+        pyautogui.hotkey('alt', 'q')
 
     pyautogui.hotkey('ctrl', 'tab')
 
+    for _ in range(1):
+        pyautogui.hotkey('alt', 'r')
+        pyautogui.hotkey('alt', 'q')
+        pyautogui.hotkey('alt', 'q')
+    pyautogui.hotkey('ctrl', 'tab')
+    for _ in range(1):
+        pyautogui.hotkey('alt', 'r')
+        pyautogui.hotkey('alt', 'q')
+        pyautogui.hotkey('alt', 'q')
+
+    pyautogui.hotkey('ctrl', 'tab')
+
+
+# window = mhWindow.MHWindow()
+# 抓鬼(window, True)
 
 print("按下 Tab 键将触发操作...")
 

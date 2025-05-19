@@ -1286,16 +1286,16 @@ class MHWindow:
         s_point = self.F_窗口内查找图片(IMAGES['狮子队标'])
         if(s_point != None):
             s_point[1] = s_point[1] + 15
-            self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 42)
+            self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 45)
             pyautogui.hotkey('alt', '7')
             time.sleep(1)
             point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
             if(point):
                 print('找到！！！')
             else:
-                self.F_游戏光标移动到(s_point[0] - 20, s_point[1] + 42)
+                self.F_游戏光标移动到(s_point[0] - 20, s_point[1] + 45)
                 for i in pathMaybe:
-                    self.F_游戏光标移动到(s_point[0] + i, s_point[1] + 42)
+                    self.F_游戏光标移动到(s_point[0] + i, s_point[1] + 45)
                     time.sleep(1)
                     point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
                     if(point):
@@ -1356,16 +1356,16 @@ class MHWindow:
         s_point = self.F_窗口内查找图片(IMAGES['狮子队标'])
         if(s_point != None):
             s_point[1] = s_point[1] + 15
-            self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 42)
+            self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 45)
             pyautogui.hotkey('alt', '7')
             time.sleep(1)
             point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
             if(point):
                 print('找到！！！')
             else:
-                self.F_游戏光标移动到(s_point[0] - 20, s_point[1] + 42)
+                self.F_游戏光标移动到(s_point[0] - 20, s_point[1] + 45)
                 for i in pathMaybe:
-                    self.F_游戏光标移动到(s_point[0] + i, s_point[1] + 42)
+                    self.F_游戏光标移动到(s_point[0] + i, s_point[1] + 45)
                     time.sleep(1)
                     point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
                     if(point):
