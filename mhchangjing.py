@@ -82,6 +82,7 @@ print("按下 Tab 键将触发操作...")
 # 监听键盘
 while True:
     if keyboard.is_pressed('shift'):
+        # perform_actions()
         perform_actions()
         while keyboard.is_pressed('shift'):  # 等待释放 Tab 键
             time.sleep(0.1)

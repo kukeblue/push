@@ -699,7 +699,7 @@ class MHWindow:
             else:
                 self.F_使用飞行旗('傲来国', '花果山')
                 self.F_游戏光标移动到(632, 103)
-                self.F_游戏光标移动到(723, 84)
+                self.F_游戏光标移动到(723, 114)
                 self.utils.click()
                 time.sleep(1.5)
                 self.utils.click()
@@ -740,7 +740,7 @@ class MHWindow:
                 pyautogui.press('tab')
                 self.F_等待人物停止移动()
                 pyautogui.press('f9')
-                self.F_游戏光标移动到(35, 125)
+                self.F_游戏光标移动到(35, 155)
                 self.utils.click()
                 time.sleep(2)
                 self.utils.click()
@@ -824,6 +824,8 @@ class MHWindow:
         return False
 
     def F_导航到女娲神迹(self):
+        # PlaySound(projectPath + "\images\\" + "wozhidao.wav", flags=1)
+        # time.sleep(10)
         for x in range(6):
             当前所在地图 = self.F_获取当前地图()
             if(当前所在地图 == '女娲神迹'):
