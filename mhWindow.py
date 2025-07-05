@@ -80,7 +80,6 @@ class MHWindow:
             errorCount = errorCount + 0.05
             gamePoint = self.F_获取游戏光标位置()
             if(gamePoint == None):
-
                 if(手指操作模式):
                     手指操作模式计数器 = 手指操作模式计数器 + 1
                     if(手指操作模式计数器 > 3):
@@ -98,15 +97,14 @@ class MHWindow:
             if(currentGamePoint == lastGamePoint):
                 errorCount = errorCount + 1
             lastGamePoint = currentGamePoint
-
             # print('当前鼠标位置为：' + str(currentX) + ":" + str(currentY))
             moveX = targetX - currentX
             moveY = targetY - currentY
             # print('距离目标位置为：' + str(moveX) + ":" + str(moveY))
             if abs(moveX) > 2 or abs(moveY) > 2:
                 if(stepCount < 2):
-                    self.utils.move(moveX / 2 + random.randint(1, 20),
-                                moveY / 2 + random.randint(1, 20))
+                    self.utils.move(moveX / 1.5 + random.randint(1, 20),
+                                moveY / 1.5 + random.randint(1, 20))
                     stepCount = stepCount + 1
                 else:
                     if(isSafeArea):
@@ -1057,6 +1055,10 @@ class MHWindow:
         self.F_关闭对话()
     
     def F_导航到五庄观(self):
+
+        PlaySound(projectPath + "\images\\" + "wozhidao.wav", flags=1)
+        time.sleep(60)
+
         是否使用飞行 = False
         for x in range(5):
             当前所在地图 = self.F_获取当前地图()

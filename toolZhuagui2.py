@@ -8,7 +8,7 @@ import threading
 import pyautogui
 import time 
 import atexit
-import mhZhuagui
+import mhZhuagui2
 from winsound import PlaySound
 # 禁止控制台输出
 import os
@@ -31,7 +31,7 @@ def F_启动进程(app):
             app.statusBar().showMessage('线程执行中....')
             print('线程执行中....')
             try:
-                mhZhuagui.抓鬼(window, True)
+                mhZhuagui2.抓鬼(window, True)
             except:
                 ProgramSwitch = False
                 app.ButtonProgramSwitch.setText("开启")
