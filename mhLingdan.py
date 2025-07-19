@@ -68,13 +68,20 @@ def 找梦魔(window, 任务):
         pyautogui.hotkey('alt', 'q')
         window.F_等待人物停止移动()
         PlaySound("C:\\y913.wav", flags=1)
-        window.F_铃铛自动战斗()
+        point = window.F_窗口内查找图片('mh_lingdan_qiaozhimo.png')
+        if point != None:
+            window.F_游戏光标移动到(point[0] + 15, point[1] + 5)
+            window.utils.click()
+            window.utils.click()
+            PlaySound("C:\\y913.wav", flags=1)
+            window.F_铃铛自动战斗()
+        window.utils.click()
 
 
 def 使用招魂(window, 任务):
     ret = window.F_获取任务位置和坐标(任务)
     window.F_智能导航(ret[0], point = ret[1])
-    window.F_小地图寻路(ret[1], True)
+    window.F_小地图寻路(ret[1])
     pyautogui.hotkey('alt', 'h')
     pyautogui.hotkey('alt', 'e')
     for i in range(3):
@@ -88,7 +95,15 @@ def 使用招魂(window, 任务):
     window.utils.click()
     time.sleep(1)
     PlaySound("C:\\y913.wav", flags=1)
-    window.F_铃铛自动战斗()
+    window.F_点击战斗()
+    point = window.F_窗口内查找图片('mh_lingdan_qiaozhimo.png')
+    if point != None:
+        window.F_游戏光标移动到(point[0] + 15, point[1] + 5)
+        window.utils.click()
+        window.utils.click()
+        PlaySound("C:\\y913.wav", flags=1)
+        window.F_铃铛自动战斗()
+    window.utils.click()
 
 
 def 找巧智(window, 任务):
@@ -177,7 +192,7 @@ def 杀虫(window, 任务):
 def 放虫(window, 任务):
     ret = window.F_获取任务位置和坐标(任务)
     window.F_智能导航(ret[0], point=ret[1])
-    window.F_小地图寻路(ret[1], True)
+    window.F_小地图寻路(ret[1])
     pyautogui.hotkey('alt', 'h')
     pyautogui.hotkey('alt', 'e')
     for i in range(3):
