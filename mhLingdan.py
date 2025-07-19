@@ -170,13 +170,13 @@ def 找迷幻妖(window, 任务):
         pyautogui.hotkey('alt', 'h')
         time.sleep(1)
         PlaySound("C:\\y913.wav", flags=1)
-        # window.F_点击战斗(True)
-        # time.sleep(1)
+        window.F_点击战斗()
+        time.sleep(1)
         # window.F_游戏光标移动到(275, 340)
         # time.sleep(3)
-        # window.utils.click()
+        window.utils.rightClick()
         # time.sleep(0.5)
-        window.F_铃铛自动战斗()
+        # window.F_铃铛自动战斗()
         window.utils.click()
 
 
@@ -185,7 +185,18 @@ def 杀虫(window, 任务):
     window.F_小地图寻路(ret[1], None)
     time.sleep(0.5)
     PlaySound("C:\\y913.wav", flags=1)
+    window.F_点击战斗()
+    time.sleep(1)
     window.F_铃铛自动战斗()
+    window.utils.click()
+    time.sleep(1)
+    point = window.F_窗口内查找图片('mh_lingdan_qiaozhimo.png')
+    if point != None:
+        window.F_游戏光标移动到(point[0] + 15, point[1] + 5)
+        window.utils.click()
+        window.utils.click()
+        PlaySound("C:\\y913.wav", flags=1)
+        window.F_铃铛自动战斗()
     window.utils.click()
 
 
