@@ -102,7 +102,7 @@ def 使用招魂(window, 任务):
         window.utils.click()
         window.utils.click()
         PlaySound("C:\\y913.wav", flags=1)
-        window.F_铃铛自动战斗()
+    window.F_铃铛自动战斗()
     window.utils.click()
 
 

@@ -187,7 +187,7 @@ def 抓鬼(window, 是否抓大鬼=True):
         window.F_导航到地府()
         if(是否抓大鬼):
             F_领取大鬼任务(window)
-            pyautogui.press('f5')
+            pyautogui.press('f12')
             pyautogui.press('up')
             pyautogui.press('enter')
         F_领取钟馗任务(window)
