@@ -25,7 +25,7 @@ def login(account):
 
     location = pyautogui.locateOnScreen(imgPath2, confidence=0.8)
     if location is None:
-        print("❌ 未找到图像，无法截图")
+        print("❌ 未找到图像，无法截图1")
         exit()
 
     left, top = location.left, location.top
@@ -36,7 +36,7 @@ def login(account):
     location = pyautogui.locateOnScreen(imgPath, confidence=0.8)
 
     if location is None:
-        print("❌ 未找到图像，无法截图")
+        print("❌ 未找到图像，无法截图2")
         exit()
 
     left, top = location.left, location.top
@@ -95,10 +95,11 @@ def login(account):
 
     print(response.status_code)
 
-    time.sleep(15)
-    pyautogui.click()
+    time.sleep(20)
     pyautogui.click()
     time.sleep(1)
+    pyautogui.click()
+    time.sleep(2)
 
 login('c*com@163.com')
 pyautogui.hotkey('ctrl', 'tab')
@@ -135,3 +136,5 @@ def delete_qr_login_images():
 
 # 在脚本最后调用这个函数
 delete_qr_login_images()
+time.sleep(3)
+pyautogui.hotkey('ctrl', 'tab')

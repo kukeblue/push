@@ -194,5 +194,5 @@ def 抓鬼(window, 是否抓大鬼=True):
         
 
 
-# window = mhWindow.MHWindow()
-# 抓鬼(window, True)
+window = mhWindow.MHWindow()
+抓鬼(window, True)
