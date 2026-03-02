@@ -28,14 +28,19 @@ if __name__ == '__main__':
         # 判断是否在战斗
         if(window.F_是否在战斗()):
             print('进入战斗')
-            # 等待战斗结束
-            while True:
-                time.sleep(0.1)
-                if(window.F_是否结束战斗()):
-                    print('战斗结束')
-                    # 播放音频
-                    PlaySound(projectPath + "\\" + "y913.wav", flags=1)
-                    break
+            window.F_点击主怪自动战斗('f5')
+            PlaySound(projectPath + "\\" + "y913.wav", flags=1)
+            # # 等待战斗结束
+            window.F_关闭对话()
+            window.F_打开道具()
+            window.F_游戏光标移动到(269, 318)
+            window.utils.rightClick()
+            window.F_游戏光标移动到(239, 318)
+            window.utils.rightClick()
+            time.sleep(1)
+
+            window.F_关闭道具()
+            
         
         if(F_是否刷新封妖(window)):
             print('发现封妖')

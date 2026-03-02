@@ -22,14 +22,16 @@ def 女魃战斗(window):
             point = window.F_窗口内查找图片('window_zidong2.png')
             if(point):
                 print('开始自动操作')
-                # if(回合数 == 1):
-                #     pyautogui.press('f5')
-                #     pyautogui.hotkey('alt', 'q')
-                #     pass
-                # else:
-                #     pyautogui.hotkey('alt', 'q')
-                #     pyautogui.hotkey('alt', 'q')
-                #     pass
+                if(回合数 == 1):
+                    pyautogui.press('f5')
+                    pyautogui.press('f2')
+                    pyautogui.hotkey('alt', 'q')
+                    pyautogui.hotkey('alt', 'q')
+                    pass
+                else:
+                    pyautogui.hotkey('alt', 'q')
+                    pyautogui.hotkey('alt', 'q')
+                    pass
                 回合数 = 回合数 + 1
             if(window.F_是否结束战斗()):
                 break
@@ -155,6 +157,31 @@ def F_做任务(window):
                 break
         window.F_游戏光标移动到(393, 403)
         window.utils.click()
+    if('秦夫人' in 任务):
+        window.F_游戏光标移动到(686, 177, 手指操作模式=True)
+        window.utils.doubleClick()
+        time.sleep(2)
+        window.utils.doubleClick()
+        window.F_鼠标移动到窗口中心()
+        window.F_等待人物停止移动()
+        point = window.F_窗口内查找图片('window_duihua_jnh.png')
+        if point != None:
+            window.F_游戏光标移动到(point[0] + 10, point[1] + 2)
+            window.utils.click()
+        window.F_游戏光标移动到(188, 338)
+        window.utils.click()
+        window.utils.click()
+        time.sleep(0.5)
+        window.utils.click()
+        time.sleep(2)
+        while True:
+            time.sleep(1)
+            if(window.F_是否在战斗()):
+                是否刚战斗 = True
+            if(女魃战斗(window)):
+                break
+        window.F_游戏光标移动到(393, 403)
+        window.utils.click()
     if('空度' in 任务):
         window.F_导航到化生寺()
         window.F_游戏光标移动到(693, 175, 手指操作模式=True)
@@ -174,15 +201,14 @@ def F_做任务(window):
         window.F_使用飞行旗('长安城', '大唐国境', 是否检验坐标=False)
         window.F_关闭道具()
         window.F_导航到普陀山()
-        window.F_游戏光标移动到(702, 175, 手指操作模式=True)
+        pyautogui.hotkey('alt', 'q')
+        window.F_游戏光标移动到(411, 134, 手指操作模式=True)
+        time.sleep(0.3)
         window.utils.doubleClick()
-        time.sleep(2)
-        window.utils.doubleClick()
+        pyautogui.hotkey('alt', 'q')
         window.F_鼠标移动到窗口中心()
         window.F_等待人物停止移动()
-        window.F_游戏光标移动到(196, 338)
-        window.utils.click()
-        window.F_游戏光标移动到(197, 350)
+        window.F_游戏光标移动到(230, 338)
         window.utils.click()
         time.sleep(2)
         while True:
@@ -248,14 +274,14 @@ def F_做任务(window):
         window.utils.click()
     if('小马' in 任务):
         window.F_使用飞行旗('长安城', '驿站', 是否检验坐标=False)
-        window.F_导航到大唐国境2()
-        window.F_游戏光标移动到(679, 178, 手指操作模式=True)
+        # window.F_导航到大唐国境2()
+        pyautogui.hotkey('alt', 'q')
+        window.F_游戏光标移动到(374, 134, 手指操作模式=True)
         time.sleep(0.3)
         window.utils.doubleClick()
-        time.sleep(2)
-        window.utils.doubleClick()
-        time.sleep(10)
+        pyautogui.hotkey('alt', 'q')
         window.F_鼠标移动到窗口中心()
+        time.sleep(10)
         window.F_等待人物停止移动()
         # point = window.F_窗口内查找图片('window_duihua_jnh.png')
         # if point != None:
@@ -387,11 +413,11 @@ def F_做任务(window):
 
     if('长寿郊外' in 任务):
         window.F_导航到长寿郊外()
-        window.F_游戏光标移动到(678, 174, 手指操作模式=True)
+        pyautogui.hotkey('alt', 'q')
+        window.F_游戏光标移动到(384, 134, 手指操作模式=True)
         time.sleep(0.3)
         window.utils.doubleClick()
-        time.sleep(2)
-        window.utils.doubleClick()
+        pyautogui.hotkey('alt', 'q')
         window.F_鼠标移动到窗口中心()
         window.F_等待人物停止移动()
         # point = window.F_窗口内查找图片('window_duihua_jnh.png')
@@ -410,16 +436,16 @@ def F_做任务(window):
                 break
         window.F_游戏光标移动到(393, 403)
         window.utils.click()
-    
-    if('建邺' in 任务):
+    if('杂货摊主' in 任务):
         window.F_使用飞行符('建邺城')
-        window.F_游戏光标移动到(687, 182, 手指操作模式=True)
+        pyautogui.hotkey('alt', 'q')
+        window.F_游戏光标移动到(472, 114, 手指操作模式=True)
+        time.sleep(0.3)
         window.utils.doubleClick()
-        time.sleep(2)
-        window.utils.doubleClick()
+        pyautogui.hotkey('alt', 'q')
         window.F_鼠标移动到窗口中心()
         window.F_等待人物停止移动()
-        window.F_游戏光标移动到(200, 331)
+        window.F_游戏光标移动到(247, 355)
         window.utils.click()
         time.sleep(2)
         while True:
@@ -431,7 +457,120 @@ def F_做任务(window):
                 break
         window.F_游戏光标移动到(393, 403)
         window.utils.click()
-    if('边关将士' in 任务):
+    if('傲来国钱庄' in 任务):
+        window.F_使用飞行符('傲来国')
+        pyautogui.hotkey('alt', 'q')
+        window.F_游戏光标移动到(494, 118, 手指操作模式=True)
+        time.sleep(0.3)
+        window.utils.doubleClick()
+        pyautogui.hotkey('alt', 'q')
+        window.F_鼠标移动到窗口中心()
+        window.F_等待人物停止移动()
+        window.F_游戏光标移动到(251, 337)
+        window.utils.click()
+        time.sleep(2)
+        while True:
+            time.sleep(1)
+            if(window.F_是否在战斗()):
+                是否刚战斗 = True
+            if(女魃战斗(window)):
+                
+                break
+        window.F_游戏光标移动到(393, 403)
+        window.utils.click()
+    if('丞相府' in 任务):
+        pyautogui.hotkey('alt', 'q')
+        window.F_游戏光标移动到(373, 129, 手指操作模式=True)
+        time.sleep(0.3)
+        window.utils.doubleClick()
+        pyautogui.hotkey('alt', 'q')
+        window.F_鼠标移动到窗口中心()
+        window.F_等待人物停止移动()
+        window.F_游戏光标移动到(196, 337)
+        window.utils.click()
+        time.sleep(1)
+
+        window.utils.click()
+
+        time.sleep(2)
+        while True:
+            time.sleep(1)
+            if(window.F_是否在战斗()):
+                是否刚战斗 = True
+            if(女魃战斗(window)):
+                
+                break
+        window.F_游戏光标移动到(393, 403)
+        window.utils.click()
+    if('赵姨娘' in 任务):
+        messagebox.showinfo('严重错误', '赵姨娘')
+        sys.exit()
+        # pyautogui.hotkey('alt', 'q')
+        # window.F_游戏光标移动到(377, 132, 手指操作模式=True)
+        # time.sleep(0.3)
+        # window.utils.doubleClick()
+        # pyautogui.hotkey('alt', 'q')
+        # window.F_鼠标移动到窗口中心()
+        # window.F_等待人物停止移动()
+        # window.F_游戏光标移动到(190, 340)
+        # window.utils.click()
+        # time.sleep(1)
+
+        # window.utils.click()
+
+        # time.sleep(2)
+        # while True:
+        #     time.sleep(1)
+        #     if(window.F_是否在战斗()):
+        #         是否刚战斗 = True
+        #     if(女魃战斗(window)):
+                
+        #         break
+        # window.F_游戏光标移动到(393, 403)
+        # window.utils.click()
+    if('建邺' in 任务 and '旅行商人' in 任务):
+        window.F_使用飞行符('建邺城')
+        pyautogui.hotkey('alt', 'q')
+        window.F_游戏光标移动到(482, 118, 手指操作模式=True)
+        time.sleep(0.3)
+        window.utils.doubleClick()
+        pyautogui.hotkey('alt', 'q')
+        window.F_鼠标移动到窗口中心()
+        window.F_等待人物停止移动()
+        window.F_游戏光标移动到(238, 355)
+        window.utils.click()
+        time.sleep(2)
+        while True:
+            time.sleep(1)
+            if(window.F_是否在战斗()):
+                是否刚战斗 = True
+            if(女魃战斗(window)):
+                
+                break
+        window.F_游戏光标移动到(393, 403)
+        window.utils.click()
+    if('建邺' in 任务 and '杂货摊主' not in 任务 and '旅行商人' not in 任务):
+        window.F_使用飞行符('建邺城')
+        pyautogui.hotkey('alt', 'q')
+        window.F_游戏光标移动到(364, 128, 手指操作模式=True)
+        time.sleep(0.3)
+        window.utils.doubleClick()
+        pyautogui.hotkey('alt', 'q')
+        window.F_鼠标移动到窗口中心()
+        window.F_等待人物停止移动()
+        window.F_游戏光标移动到(242, 337)
+        window.utils.click()
+        time.sleep(2)
+        while True:
+            time.sleep(1)
+            if(window.F_是否在战斗()):
+                是否刚战斗 = True
+            if(女魃战斗(window)):
+                
+                break
+        window.F_游戏光标移动到(393, 403)
+        window.utils.click()
+    if('边关将士' in 任务 or '三药' in 任务 or '菩提' in 任务):
         messagebox.showinfo('严重错误', '边关将士')
         sys.exit()
     if('春晚筹备现场' in 任务):
@@ -453,7 +592,7 @@ def F_领取任务(window):
 
         print('F_领取任务')
         window.F_使用道具('daoju_xfxq_red.png')
-        window.F_游戏光标移动到(198, 339)
+        window.F_游戏光标移动到(198, 334)
         window.utils.click()
         window.F_关闭道具()
         if(window.F_获取当前地图() == '长安城'):
@@ -468,6 +607,9 @@ def F_领取任务(window):
     window.utils.click()
     time.sleep(1)
     window.utils.click()
+    pyautogui.press('up')
+    pyautogui.press('enter')
+
 
 window = mhWindow.MHWindow()
 
@@ -481,5 +623,7 @@ window = mhWindow.MHWindow()
 #     time.sleep(1)
 #     if(女魃战斗(window)):
 #         break
+while not window.F_是否结束战斗():
+    time.sleep(1)
 while True:
     F_做任务(window)

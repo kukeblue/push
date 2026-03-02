@@ -132,8 +132,7 @@ def perform_actions():
     # switch_tab()
 
     # 第一组：Alt+D 三次，然后切换标签
-    pyautogui.press('f5')
-    press_hotkey('alt', 'd', times=1)
+    press_hotkey('alt', 'd', times=2)
     switch_tab()
     
     # 第二组：Alt+Q, Alt+A, Alt+A

@@ -20,7 +20,7 @@ class MHWindow:
     utils = None
 
     def __init__(self):
-        # print('程序启动后等待3秒，这3秒可以把鼠标切到游戏')
+        print('程序启动后等待3秒，这3秒可以把鼠标切到游戏')
         time.sleep(3)
         self.utils = utils.Utils()
         self.utils.bindHandle()
@@ -32,7 +32,7 @@ class MHWindow:
             ret[1] = ret[1] - 14
             self.GameWindowArea = [ret[0], ret[1], 800, 600]
             self.SafeWindowArea = [ret[0] + 100, ret[1] + 100, 700,  500]
-            # print('绑定窗口成功, 顶部坐标为：(' + str(ret[0]) + "," + str(ret[1])+")")
+            print('绑定窗口成功, 顶部坐标为：(' + str(ret[0]) + "," + str(ret[1])+")")
     
     def F_窗口内查找颜色(self, colors, confidence=0.85):
         ret = self.utils.op.FindMultiColor(
@@ -121,7 +121,7 @@ class MHWindow:
                 break
     
     def F_窗口内查找图片(self, img, confidence=0.75, area=(0, 0, 0, 0)):
-        imgPath = projectPath + "\Images\\"  + img
+        imgPath = projectPath + "\images\\"  + img
         location = None
         windowArea = None
         if(area[0] != 0):
@@ -132,13 +132,17 @@ class MHWindow:
             windowArea = (x, y, width, height)
         else:
             windowArea = [self.GameWindowArea[0], self.GameWindowArea[1], 800, 600]
-        if(confidence == None):
-            location = pyautogui.locateOnScreen(imgPath, region=windowArea, grayscale=False)
-        else:
-            location = pyautogui.locateOnScreen(imgPath, region=windowArea, confidence=confidence)
-        if(location != None):
-            ret = [int(location.left) - self.GameWindowArea[0], int(location.top) - self.GameWindowArea[1], int(location.width), int(location.height)]
-            return ret
+        try:
+            if(confidence == None):
+                location = pyautogui.locateOnScreen(imgPath, region=windowArea, grayscale=False)
+            else:
+                location = pyautogui.locateOnScreen(imgPath, region=windowArea, confidence=confidence)
+            if(location != None):
+                ret = [int(location.left) - self.GameWindowArea[0], int(location.top) - self.GameWindowArea[1], int(location.width), int(location.height)]
+                return ret
+        except pyautogui.ImageNotFoundException:
+            # 图片未找到，返回 None
+            return None
         return None
 
     def F_窗口区域截图(self, fileName, area):
@@ -245,15 +249,6 @@ class MHWindow:
         ret = self.utils.opOcrFont(
             [self.GameWindowArea[0], self.GameWindowArea[1], 143, 47],
             fontConfigs['右上角当前地图文字集'],
-            confidence=1
-        )
-        if(ret != None):
-            return ret
-    
-    def F_获取当前场景文字(self):
-        ret = self.utils.opOcrFont(
-            [self.GameWindowArea[0], self.GameWindowArea[1], 143, 47],
-            fontConfigs['场景文字集'],
             confidence=1
         )
         if(ret != None):
@@ -916,21 +911,30 @@ class MHWindow:
                     time.sleep(0.25)
         return False
 
+    
+
     def F_导航到江南野外(self):
         for x in range(5):
             当前所在地图 = self.F_获取当前地图()
             if(当前所在地图 == '江南野外'):
                 return True
             elif(当前所在地图 == '长安城'):
-                pyautogui.press('tab')
-                self.F_游戏光标移动到(665, 439)
-                self.utils.click()
-                pyautogui.press('tab')
-                self.F_等待人物停止移动()
-                # self.F_小地图寻路([535, 2])
-                self.F_游戏光标移动到(716, 519)
-                self.utils.click()
-                time.sleep(2)
+                ret = self.F_使用飞行旗('长安城', '江南野外', 是否检验坐标=False)
+                if(ret):
+                    self.F_游戏光标移动到(716, 519)
+                    self.utils.click()
+                    time.sleep(2)
+                else:
+                    time.sleep(0.25)
+                # pyautogui.press('tab')
+                # self.F_游戏光标移动到(665, 439)
+                # self.utils.click()
+                # pyautogui.press('tab')
+                # self.F_等待人物停止移动()
+                # # self.F_小地图寻路([535, 2])
+                # self.F_游戏光标移动到(716, 519)
+                # self.utils.click()
+                # time.sleep(2)
             else:
                 ret = self.F_使用飞行旗('长安城', '江南野外', 是否检验坐标=False)
                 if(ret):
@@ -947,15 +951,15 @@ class MHWindow:
             if(当前所在地图 == '大唐国境'):
                 return True
             elif(当前所在地图 == '长安城'):
-                pyautogui.press('tab')
-                self.F_游戏光标移动到(133, 430)
-                self.utils.click()
-                pyautogui.press('tab')
-                self.F_等待人物停止移动()
-                self.F_游戏光标移动到(128, 523)
-                self.F_游戏光标移动到(67, 543)
-                self.utils.click()
-                time.sleep(2)
+                ret = self.F_使用飞行旗('长安城', '大唐国境', 是否检验坐标=False)
+                if(ret):
+                    self.F_游戏光标移动到(128, 523)
+                    self.F_游戏光标移动到(67, 543)
+                    self.utils.click()
+                    time.sleep(2)
+                else:
+                    time.sleep(0.25)
+                self.F_关闭道具()
             else:
                 ret = self.F_使用飞行旗('长安城', '大唐国境', 是否检验坐标=False)
                 if(ret):
@@ -1140,16 +1144,12 @@ class MHWindow:
     def F_使用月光(self):
         pyautogui.press('f1')
         time.sleep(1)
-        self.F_游戏光标移动到(221, 313)
+        self.F_游戏光标移动到(226, 333)
         self.utils.click()
         time.sleep(1)
         self.F_关闭对话()
     
     def F_导航到五庄观(self):
-
-        PlaySound(projectPath + "\images\\" + "wozhidao.wav", flags=1)
-        time.sleep(60)
-
         是否使用飞行 = False
         for x in range(5):
             当前所在地图 = self.F_获取当前地图()
@@ -1158,31 +1158,21 @@ class MHWindow:
                     pyautogui.press('f4')
                 return True
             elif(当前所在地图 == '大唐境外'):
-                pyautogui.press('tab')
-                self.F_游戏光标移动到(686, 287)
+                self.F_游戏光标移动到(728, 480)
                 self.utils.click()
-                time.sleep(0.25)
-                pyautogui.press('tab')
-                self.F_等待人物停止移动()
-                self.F_游戏光标移动到(730, 190)
+                time.sleep(3)
                 self.utils.click()
-                time.sleep(2)
+                time.sleep(3)
             elif(当前所在地图 == '大唐国境'):
+                self.F_小地图寻路([5, 103], 检查是否到达指定坐标=True)
                 if(是否使用飞行 == False):
-                    self.F_小地图寻路([16, 99], 检查是否到达指定坐标=True)
                     pyautogui.press('f4')
-                    time.sleep(2)
                     是否使用飞行 = True
-                pyautogui.press('tab')
-                self.F_游戏光标移动到(178, 412)
+                self.F_游戏光标移动到(78, 525)
                 self.utils.click()
-                time.sleep(0.25)
-                pyautogui.press('tab')
-                self.F_等待人物停止移动()
-                self.F_游戏光标移动到(72, 333)
+                time.sleep(3)
                 self.utils.click()
-                time.sleep(0.25)
-                self.F_游戏光标移动到(686, 287)
+                time.sleep(3)
             else:
                 self.F_导航到大唐国境2()
         return False
@@ -1451,8 +1441,6 @@ class MHWindow:
         time.sleep(1)
         pathMaybe = [-20, -10 , 10 , 40]
         s_point = self.F_窗口内查找图片(IMAGES['狮子队标'])
-        if s_point == None:
-            s_point = self.F_窗口内查找图片('lingdang_zhandou.png', confidence=0.9)
         if(s_point != None):
             s_point[1] = s_point[1] + 15
             self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 45)

@@ -54,20 +54,38 @@ def F_识别抓鬼任务(window):
             print(text)
         return data
 
+
+count = 0
 def F_领取大鬼任务(window): 
-    window.F_使用飞行旗('长安城', '驿站', 是否检验坐标=False)
+    for i in range(10):
+        window.F_使用道具('daoju_xfxq_red.png')
+        window.F_游戏光标移动到(198, 334)
+        window.utils.click()
+        window.F_关闭道具()
+        if(window.F_获取当前地图() == '长安城'):
+            break
     pyautogui.hotkey('alt', 'w')
     window.F_游戏光标移动到(685, 163)
     pyautogui.hotkey('alt', 'w')
-
     time.sleep(0.25)
     window.utils.click()
     window.utils.click()
+    time.sleep(0.5)
     if(window.F_窗口内查找图片('window_goto.png')):
         window.F_游戏光标移动到(191, 332)
         window.utils.click()
-    window.F_鼠标移动到窗口中心()
-    time.sleep(43)
+    else:
+        window.F_游戏光标移动到(218, 333)
+        window.utils.click()
+    window.F_游戏光标移动到(657, 184)
+    # global count
+    # count = count + 1
+    # if (count % 2 == 0):
+    #     pyautogui.press('f6')
+    #     window.F_游戏光标移动到(187, 395)
+    #     window.utils.click()
+    #     window.F_关闭对话()
+    time.sleep(36)
     pyautogui.press('f9')
     window.F_游戏光标移动到(365, 230)
     window.utils.click()
@@ -154,8 +172,8 @@ def F_去抓鬼(window, ret, 是否是大鬼=True):
         # window.F_点击主怪自动战斗('f5')
     else:
         window.F_点击战斗()
-        window.F_点击主怪自动战斗()
-        # window.F_点击主怪自动战斗('f4')
+        # window.F_点击主怪自动战斗()
+        window.F_点击主怪自动战斗('f5')
     time.sleep(0.5)
     window.F_关闭对话()
     
@@ -173,10 +191,6 @@ def 抓鬼(window, 是否抓大鬼=True):
     time.sleep(2)
     while True:
         任务 = F_识别抓鬼任务(window)
-        print('????2222')
-        摄药香时间 = window.F_获取当前摄药香时间()
-        if(摄药香时间 and int(摄药香时间) < 10):
-            window.F_使用道具('daoju_xiang.png')
         if(是否抓大鬼 and 任务['鬼王'] != None):
             pyautogui.hotkey('alt', 'q')
             window.F_游戏光标移动到(178, 341)

@@ -27,7 +27,7 @@ class Utils:
     def bindHandle(self):
         real = pyautogui.position()
         self.handle = win32gui.WindowFromPoint((real[0], real[1]))
-        # print('当前鼠标下窗口handle为' + str(self.handle))
+        print('当前鼠标下窗口handle为' + str(self.handle))
 
     # 鼠标移动
     def move(self, x, y):
