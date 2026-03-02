@@ -32,7 +32,7 @@ def 识别任务(window):
         window.F_智能导航(ret[0], point = ret[1])
         window.F_小地图寻路(ret[1], 检查是否到达指定坐标=False)
         window.F_点击战斗2()
-        window.F_点击主怪自动战斗('f5', 是否关闭对话框=False)
+        window.F_点击主怪自动战斗(是否关闭对话框=False)
         time.sleep(0.5)
         if(window.F_关闭对话()):
             window.F_error()
@@ -76,7 +76,7 @@ def 领任务(window):
                     s_point = window.F_窗口内查找图片(IMAGES['狮子队标'], confidence=0.95)
                 if(s_point  == None):
                     s_point = window.F_窗口内查找图片(IMAGES['狮子队标'], confidence=0.95)
-                if(s_point):
+                if(s_point):    
                     if(s_point and is_distance_greater_than_100(point[0], point[1], s_point[0], s_point[1] + 80)):
                         window.F_游戏光标移动到(point[0] + 10, point[1] - 10)
                         window.utils.click()

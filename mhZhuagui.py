@@ -106,7 +106,7 @@ def F_领取钟馗任务(window):
         window.utils.click()
         pyautogui.hotkey('alt', 'q')
         time.sleep(1.5)
-
+    pyautogui.press('f5')
     # window.F_打开道具()
     # window.F_游戏光标移动到(269, 318)
     # window.utils.rightClick()

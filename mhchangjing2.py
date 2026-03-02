@@ -15,8 +15,8 @@ projectPath = utils.projectPath
 
 
 window = mhWindow.MHWindow()
-POINT = [[21,130], [168,18], [171, 129], [24,19]]  # 小地图寻路坐标
-while True:
+POINT = [[21,130], [24,19], [168, 120], [149, 17]]  # 小地图寻路坐标
+while True: 
     for i in POINT:
         window.F_小地图寻路(i, 检查是否到达指定坐标=False)
         window.F_等待人物停止移动()

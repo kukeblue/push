@@ -37,6 +37,7 @@ def F_启动进程(app):
             第二回合操作位置 = app.option2Path.split(",")
             第二回合操作位置[0] = int(第二回合操作位置[0])
             第二回合操作位置[1] = int(第二回合操作位置[1])
+        抓鬼数 = 1
         while ProgramSwitch:
             app.statusBar().showMessage('线程执行中....')
             print('线程执行中....')
@@ -47,13 +48,12 @@ def F_启动进程(app):
                 window.F_播放铃声('y1954.wav')
                 time.sleep(10)
             else:
-                # print('没有代处理')
-                pass
+                print('没有代处理')
+
             if(window.F_是否在战斗()):
                 回合数 = 1
                 app.statusBar().showMessage('进入战斗')
                 print('进入战斗')
-                是否使用法宝 = False
                 time.sleep(1)
                 while(True and ProgramSwitch == True):
                     time.sleep(1)
@@ -68,36 +68,64 @@ def F_启动进程(app):
                     if(point):
                         app.statusBar().showMessage('开始自动操作')
                         print('开始自动操作')
-                        if(回合数 == 1):
-                            愤怒 = window.F_获取属性愤怒()
-                            if(愤怒 > 90 and 是否使用法宝 == False):
-                                if(愤怒 > 120):
+                        if(app.zgMode != 2):
+                            if(回合数 == 1):
+                                if(第二回合操作位置 != None):
                                     window.F_游戏光标移动到(第一回合操作位置[0], 第一回合操作位置[1])
-                                    pyautogui.press('f5')
+                                if(len(第一回合操作) == 1):
+                                    pyautogui.press(第一回合操作[0])
+                                if(len(第一回合操作) == 2):
+                                    pyautogui.hotkey(第一回合操作[0], 第一回合操作[1])
+                                
                                     pyautogui.click()
                                     pyautogui.click()
-                                else:
-                                    是否使用法宝 = True
-                                    window.F_使用法宝()
-                            if(第一回合操作位置 != None):
-                                window.F_游戏光标移动到(第一回合操作位置[0], 第一回合操作位置[1])
-                            if(len(第一回合操作) == 1):
-                                pyautogui.press(第一回合操作[0])
-                            if(len(第一回合操作) == 2):
-                                pyautogui.hotkey(第一回合操作[0], 第一回合操作[1])
-                            pyautogui.click()
-                            pyautogui.hotkey('alt', 'q')
+                                pyautogui.hotkey('alt', 'q')
+                                pyautogui.hotkey('alt', 'q')
+                            elif(回合数 == 2):
+                            
+                                if(第二回合操作位置 != None):
+                                    window.F_游戏光标移动到(第二回合操作位置[0], 第二回合操作位置[1])
+                                if(len(第二回合操作) == 1):
+                                    pyautogui.press(第一回合操作[0])
+                                if(len(第二回合操作) == 2):
+                                    pyautogui.hotkey(第二回合操作[0], 第二回合操作[1])
+                                    pyautogui.click()
+                                    pyautogui.click()
+                                pyautogui.hotkey('alt', 'q')
+                                pyautogui.hotkey('alt', 'q')
+                            else:
+                                pyautogui.hotkey('alt', 'q')
+                                pyautogui.hotkey('alt', 'q')
+                                pyautogui.hotkey('alt', 'q')
                         else:
-                            愤怒 = window.F_获取属性愤怒()
-                            if(愤怒 > 120):
-                                window.F_游戏光标移动到(第一回合操作位置[0], 第一回合操作位置[1])
-                                pyautogui.press('f5')
-                                pyautogui.click()
+                            if(回合数 == 1):
+                                if(抓鬼数 % 2 == 0):
+                                    if(第二回合操作位置 != None):
+                                        window.F_游戏光标移动到(第二回合操作位置[0], 第二回合操作位置[1])
+                                    if(len(第二回合操作) == 1):
+                                        pyautogui.press(第二回合操作[0])
+                                    if(len(第二回合操作) == 2):
+                                        pyautogui.hotkey(第二回合操作[0], 第二回合操作[1])
+                                    
+                                else:
+                                    if(第一回合操作位置 != None):
+                                        window.F_游戏光标移动到(第一回合操作位置[0], 第一回合操作位置[1])
+                                    if(len(第一回合操作) == 1):
+                                        pyautogui.press(第一回合操作[0])
+                                    if(len(第一回合操作) == 2):
+                                        pyautogui.hotkey(第一回合操作[0], 第一回合操作[1])
+                                
                                 pyautogui.click()
                             pyautogui.hotkey('alt', 'q')
                             pyautogui.hotkey('alt', 'q')
+                            pyautogui.hotkey('alt', 'q')
+
                         回合数 = 回合数 + 1
+                        if(app.hhMode == 2):
+                            pyautogui.press('up')
+                            pyautogui.press('enter')
                     if(window.F_是否结束战斗()):
+                        抓鬼数 = 抓鬼数 + 1
                         break
         app.statusBar().showMessage('线程关闭成功')
 
@@ -105,8 +133,8 @@ def F_启动进程(app):
 class Main(QMainWindow):
     
     ButtonProgramSwitch = None # 程序开关按钮
-    option1 = "f4"               # 第一回合操作
-    option1Path = "589,416"           # 第一回合操作位置
+    option1 = "f3"               # 第一回合操作
+    option1Path = "275,134"           # 第一回合操作位置
     option2 = "f5"               # 第二回合操作
     option2Path = "275,134"           # 第二回合操作位置
     zgMode = 2
@@ -162,14 +190,14 @@ class Main(QMainWindow):
         secondOptionInputPath.setText(self.option2Path)
         secondOptionInputPath.textChanged.connect(lambda text: self.onOptionInputChange(text, type='option2Path'))
         
-        # cb = QCheckBox('抓鬼模式', self)
-        # cb.move(10, 130)
-        # cb.stateChanged.connect(lambda text: self.onOptionInputChange(text, type='zgMode'))
-        # cb.toggle()
+        cb = QCheckBox('抓鬼模式', self)
+        cb.move(10, 130)
+        cb.stateChanged.connect(lambda text: self.onOptionInputChange(text, type='zgMode'))
+        cb.toggle()
 
-        # cb = QCheckBox('自动喊话', self)
-        # cb.move(100, 130)
-        # cb.stateChanged.connect(lambda text: self.onOptionInputChange(text, type='hhMode'))
+        cb = QCheckBox('自动喊话', self)
+        cb.move(100, 130)
+        cb.stateChanged.connect(lambda text: self.onOptionInputChange(text, type='hhMode'))
         self.statusBar().showMessage('脚本初始化完成')
         self.setGeometry(300, 300, 260, 320)
         self.setWindowTitle('驱动大师')

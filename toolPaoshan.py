@@ -18,8 +18,8 @@ projectPath = mhWindow.projectPath
 
 def 判断人物是否停止(window):
     colors = None
-    for i in range(60):
-        time.sleep(1)
+    for i in range(30):
+        time.sleep(2)
         x = window.GameWindowArea[0] + 31  # 位置的X坐标
         y = window.GameWindowArea[1] + 77  # 位置的Y坐标
         color = pyautogui.pixel(int(x), int(y))
@@ -159,33 +159,43 @@ def 跑商到北俱(window):
             window.utils.click()
             time.sleep(2)
         elif(当前所在地图 == '花果山'):
-            # pyautogui.press('tab')
-            # window.F_游戏光标移动到(235, 219)
-            # window.utils.click()
-            # window.utils.click()
-            # time.sleep(0.5)
-            # pyautogui.press('tab')
-            window.F_点击小地图出入口按钮()
-            window.F_小地图寻路([23, 101], 检查是否到达指定坐标=False, 是否关闭出入口=False, 是否等待人物停止移动=False)
-            判断人物是否停止(window)
-            pyautogui.press('f9')
-            window.F_点击小地图出入口按钮()
-            window.F_游戏光标移动到(492, 346)
+            pyautogui.press('tab'   )
+            window.F_游戏光标移动到(239, 242)
             window.utils.click()
-            time.sleep(1)
+            window.utils.click()
+            pyautogui.press('tab')
+            window.F_等待人物停止移动()
+            pyautogui.press('f9')
+            point = window.F_窗口内查找图片('npc_hgs_td.png')
+            if(point):
+                window.F_游戏光标移动到(point[0] +10, point[1]+10)
+                window.utils.click()
+                window.utils.click()
+                time.sleep(1)
+                # pyautogui.press('tab')
+            # window.F_点击小地图出入口按钮()
+            # window.F_小地图寻路([23, 101], 检查是否到达指定坐标=False, 是否关闭出入口=False, 是否等待人物停止移动=False)
+            # 判断人物是否停止(window)
+            # window.F_点击小地图出入口按钮()
+            # window.F_游戏光标移动到(492, 346)
+            # window.utils.click()
+            # time.sleep(1)
             if(window.F_窗口内查找图片('window_goto.png')):
                 window.F_游戏光标移动到(191, 338)
                 window.utils.click()
                 time.sleep(2)
         elif(当前所在地图 == '东海湾'):
-            window.F_小地图寻路([70, 15], 检查是否到达指定坐标=False, 是否关闭出入口=True)
-            time.sleep(7)  
-            window.F_点击小地图出入口按钮()
-            while True:
-                ret = window.F_点击傲来驿站老板()
-                if(ret):
-                    break
-                window.F_小地图寻路([70, 15], 检查是否到达指定坐标=False)
+            pyautogui.press('tab')
+            window.F_游戏光标移动到(370, 415)
+            time.sleep(1)  
+            window.utils.click()
+            window.utils.click()
+            time.sleep(10)  
+            pyautogui.press('tab')
+            time.sleep(1)  
+            ret = window.F_点击傲来驿站老板()
+            if(ret):
+                time.sleep(1)
                 
         elif(当前所在地图 == '大唐国境'):
             window.F_小地图寻路([86, 250], 检查是否到达指定坐标=False)

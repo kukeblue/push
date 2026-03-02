@@ -10,7 +10,7 @@ import json
 # 七牛云 AccessKey 和 SecretKey
 
 def login(account):
-    pyautogui.moveTo(1071, 688)
+    pyautogui.moveTo(100, 100)
     ACCESS_KEY = 'RTGyt7Ic-zM8lIY1JjBt8NyBN-a77WMvpDtKqkdw'
     SECRET_KEY = 'FDXk8_mUDPCPexslldeu4_ttyVFXJ3P1TzHB9I04'
     BUCKET_NAME = 'yemait'
@@ -26,7 +26,7 @@ def login(account):
     location = pyautogui.locateOnScreen(imgPath2, confidence=0.8)
     if location is None:
         print("❌ 未找到图像，无法截图1")
-        exit()
+        return
 
     left, top = location.left, location.top
     print(f"✅ 找到图像顶点坐标：({left}, {top})")
@@ -37,7 +37,7 @@ def login(account):
 
     if location is None:
         print("❌ 未找到图像，无法截图2")
-        exit()
+        return()
 
     left, top = location.left, location.top
     print(f"✅ 找到图像顶点坐标：({left}, {top})")
@@ -101,6 +101,7 @@ def login(account):
     pyautogui.click()
     time.sleep(2)
 
+time.sleep(3)
 login('c*com@163.com')
 pyautogui.hotkey('ctrl', 'tab')
 time.sleep(1)

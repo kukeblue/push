@@ -41,29 +41,34 @@ def perform_actions():
     pyautogui.hotkey('ctrl', 'tab')
 
     for _ in range(1):
-        pyautogui.hotkey('alt', 'q')
-        pyautogui.hotkey('alt', 'q')
+        pyautogui.hotkey('alt', 'r')
+        pyautogui.hotkey('alt', 'a')
+        pyautogui.hotkey('alt', 'a')
         
 
     for _ in range(1):
-        pyautogui.hotkey('alt', 'q')
-        pyautogui.hotkey('alt', 'q')
+        pyautogui.hotkey('alt', 'r')
+        pyautogui.hotkey('alt', 'a')
+        pyautogui.hotkey('alt', 'a')
 
     pyautogui.hotkey('ctrl', 'tab')
 
     for _ in range(1):
-        pyautogui.hotkey('alt', 'q')
-        pyautogui.hotkey('alt', 'q')
+        pyautogui.hotkey('alt', 'r')
+        pyautogui.hotkey('alt', 'a')
+        pyautogui.hotkey('alt', 'a')
 
     pyautogui.hotkey('ctrl', 'tab')
 
     for _ in range(1):
-        pyautogui.hotkey('alt', 'q')
-        pyautogui.hotkey('alt', 'q')
+        pyautogui.hotkey('alt', 'r')
+        pyautogui.hotkey('alt', 'a')
+        pyautogui.hotkey('alt', 'a')
     pyautogui.hotkey('ctrl', 'tab')
     for _ in range(1):
-        pyautogui.hotkey('alt', 'q')
-        pyautogui.hotkey('alt', 'q')
+        pyautogui.hotkey('alt', 'r')
+        pyautogui.hotkey('alt', 'a')
+        pyautogui.hotkey('alt', 'a')
 
     pyautogui.hotkey('ctrl', 'tab')
 

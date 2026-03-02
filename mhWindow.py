@@ -12,8 +12,6 @@ projectPath = utils.projectPath
 import re
 from winsound import PlaySound
 
-
-
 class MHWindow:
     GameWindowArea = [0, 0, 0, 0]  #顶点长宽的格式 游戏区域
     SafeWindowArea = [0, 0, 0, 0]  #游戏鼠标安全区域
@@ -22,7 +20,7 @@ class MHWindow:
     utils = None
 
     def __init__(self):
-        print('程序启动后等待3秒，这3秒可以把鼠标切到游戏')
+        # print('程序启动后等待3秒，这3秒可以把鼠标切到游戏')
         time.sleep(3)
         self.utils = utils.Utils()
         self.utils.bindHandle()
@@ -34,7 +32,7 @@ class MHWindow:
             ret[1] = ret[1] - 14
             self.GameWindowArea = [ret[0], ret[1], 800, 600]
             self.SafeWindowArea = [ret[0] + 100, ret[1] + 100, 700,  500]
-            print('绑定窗口成功, 顶部坐标为：(' + str(ret[0]) + "," + str(ret[1])+")")
+            # print('绑定窗口成功, 顶部坐标为：(' + str(ret[0]) + "," + str(ret[1])+")")
     
     def F_窗口内查找颜色(self, colors, confidence=0.85):
         ret = self.utils.op.FindMultiColor(
@@ -123,7 +121,7 @@ class MHWindow:
                 break
     
     def F_窗口内查找图片(self, img, confidence=0.75, area=(0, 0, 0, 0)):
-        imgPath = projectPath + "\images\\"  + img
+        imgPath = projectPath + "\Images\\"  + img
         location = None
         windowArea = None
         if(area[0] != 0):
@@ -232,6 +230,7 @@ class MHWindow:
     def F_识别自定义任务(self):
         位置信息 = [self.GameWindowArea[0] + 342, self.GameWindowArea[1] + 76,
                 211, 105]
+        print('识别自定义任务位置：' + str(位置信息))
         ret = self.utils.baidu通用文字识别(位置信息)
         print('读取自定任务:' + ret)
         return ret
@@ -246,6 +245,15 @@ class MHWindow:
         ret = self.utils.opOcrFont(
             [self.GameWindowArea[0], self.GameWindowArea[1], 143, 47],
             fontConfigs['右上角当前地图文字集'],
+            confidence=1
+        )
+        if(ret != None):
+            return ret
+    
+    def F_获取当前场景文字(self):
+        ret = self.utils.opOcrFont(
+            [self.GameWindowArea[0], self.GameWindowArea[1], 143, 47],
+            fontConfigs['场景文字集'],
             confidence=1
         )
         if(ret != None):
@@ -407,6 +415,47 @@ class MHWindow:
             pyautogui.press('tab')
             time.sleep(0.25)
             return True
+    # 390 276
+    def F_使用法宝(self):
+        pyautogui.hotkey('alt', 'z')
+        self.F_游戏光标移动到(292, 245)
+        self.utils.click()
+        time.sleep(0.25)
+        self.utils.click()
+        time.sleep(0.25)
+        self.utils.click()
+        # 鼠标回到窗口中心
+        self.F_鼠标移动到窗口中心()
+
+
+
+    def F_获取属性愤怒(self):
+        try:
+            愤怒文本 = self.utils.opOcrFont(
+                [self.GameWindowArea[0] + 52, self.GameWindowArea[1] + 247, 64, 17],
+                fontConfigs['属性文字集'],
+                confidence=0.85
+            )
+            
+            if not 愤怒文本 or not isinstance(愤怒文本, str):
+                print(f"OCR识别失败或返回非文本: {愤怒文本}")
+                return 0
+            
+            if len(愤怒文本) >= 3:
+                # 检查最后3位是否为"150"
+                if 愤怒文本[-3:] == "150":
+                    处理后文本 = 愤怒文本[:-3]
+                else:
+                    处理后文本 = 愤怒文本
+            else:
+                处理后文本 = 愤怒文本
+            数字部分 = ''.join(filter(str.isdigit, 处理后文本))
+            return int(数字部分)
+                
+        except Exception as e:
+            print(f"获取愤怒属性时出错: {e}")
+            return 0
+
         
     def F_点击小地图出入口按钮(self):
         pyautogui.press('tab')
@@ -423,9 +472,14 @@ class MHWindow:
             fontConfigs['小地图坐标文字集'],
             confidence=1
         )
+        print('小地图坐标识别结果:' + str(ret))
         if(ret != None):
             ponit = ret.split(',')
-            return ponit
+            result = []
+            for p in ponit:
+                if(p):
+                    result.append(p)
+            return result
         
     def count_different_chars(self, str1, str2):
         """
@@ -455,6 +509,8 @@ class MHWindow:
             if(x == 2):
                 self.F_点击小地图出入口按钮()
             nowPoint = self.F_获取当前坐标()
+            print('当前坐标:' + nowPoint + ' 目标坐标:' + str(目标坐标[0]) + ',' + str(目标坐标[1]))
+
             size1 = len(nowPoint)
             size2 = len(str(目标坐标[0]) + str(目标坐标[1]))
 
@@ -471,6 +527,7 @@ class MHWindow:
             isFirstMove = 1
             for i in range(25):
                 point = self.F_获取小地图坐标()
+                print('小地图坐标:' + str(point))
                 if(point == None or len(point) < 2):
                     self.F_鼠标移动到窗口中心()
                     continue
@@ -910,8 +967,36 @@ class MHWindow:
                     time.sleep(0.25)
                 self.F_关闭道具()
         return False
-
+    
     def F_点击驿站老板(self):
+        # pyautogui.hotkey('alt', 'h')
+        # pyautogui.hotkey('alt', 'w')
+        # self.F_游戏光标移动到(685, 163)
+        # pyautogui.hotkey('alt', 'w')
+        # time.sleep(0.25)
+        # self.utils.click()
+        # self.utils.click()
+        # time.sleep(5)
+        当前所在地图 = self.F_获取当前地图()
+        if(当前所在地图 != '长安城'):
+            return True
+        驿站老板位置 = None
+        驿站老板图片集 =IMAGES["NPC驿站老板"]
+        for x in range(4):
+            for item in 驿站老板图片集:
+                驿站老板位置 = self.F_窗口内查找图片(item, confidence=0.65)
+                if 驿站老板位置 is not None:
+                    self.F_游戏光标移动到(驿站老板位置[0] + 2, 驿站老板位置[1] + 5)
+                    self.utils.doubleClick()
+                    time.sleep(0.25)
+                    if(self.F_窗口内查找图片('window_goto.png')):
+                        self.F_游戏光标移动到(191, 332)
+                        self.utils.click()
+                        time.sleep(1)
+                        return True
+        return False
+
+    def F_点击驿站老板2(self):
         pyautogui.hotkey('alt', 'h')
         驿站老板位置 = None
         驿站老板图片集 =IMAGES["NPC驿站老板"]
@@ -931,6 +1016,11 @@ class MHWindow:
         return False
 
     def F_点击傲来驿站老板(self):
+        if(self.F_窗口内查找图片('window_goto.png')):
+            self.F_游戏光标移动到(191, 338)
+            self.utils.click()
+            time.sleep(2)
+            return True
         pyautogui.hotkey('alt', 'h')
         驿站老板位置 = None
         驿站老板图片集 =IMAGES["NPC驿站老板"]
@@ -993,6 +1083,7 @@ class MHWindow:
             else:
                 self.F_导航到大唐国境()
         return False
+
     
     def F_导航到地府(self):
         for x in range(5):
@@ -1205,6 +1296,7 @@ class MHWindow:
             count = count + 1
             time.sleep(0.25)
             if(self.F_是否在战斗()):
+                pyautogui.press('f6')
                 time.sleep(2)
                 while(True):
                     print('进入战斗')
@@ -1228,6 +1320,7 @@ class MHWindow:
             time.sleep(0.25)
             if(self.F_是否在战斗()):
                 if(key):
+                    pyautogui.press('f6')
                     pyautogui.press('f7')
                     self.F_游戏光标移动到(275,134)
                     pyautogui.press(key)
@@ -1290,16 +1383,16 @@ class MHWindow:
         s_point = self.F_窗口内查找图片(IMAGES['狮子队标'])
         if(s_point != None):
             s_point[1] = s_point[1] + 15
-            self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 45)
+            self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 85)
             pyautogui.hotkey('alt', '7')
             time.sleep(1)
             point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
             if(point):
                 print('找到！！！')
             else:
-                self.F_游戏光标移动到(s_point[0] - 20, s_point[1] + 45)
+                self.F_游戏光标移动到(s_point[0] - 20, s_point[1] + 85)
                 for i in pathMaybe:
-                    self.F_游戏光标移动到(s_point[0] + i, s_point[1] + 45)
+                    self.F_游戏光标移动到(s_point[0] + i, s_point[1] + 85)
                     time.sleep(1)
                     point = self.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95, area=(s_point[0]-50, s_point[1]-50, 150, 100))
                     if(point):
@@ -1358,6 +1451,8 @@ class MHWindow:
         time.sleep(1)
         pathMaybe = [-20, -10 , 10 , 40]
         s_point = self.F_窗口内查找图片(IMAGES['狮子队标'])
+        if s_point == None:
+            s_point = self.F_窗口内查找图片('lingdang_zhandou.png', confidence=0.9)
         if(s_point != None):
             s_point[1] = s_point[1] + 15
             self.F_游戏光标移动到(s_point[0] + 13, s_point[1] + 45)
@@ -1406,6 +1501,7 @@ class MHWindow:
 
 if __name__ == "__main__":
     mhWindow = MHWindow()
+    print(mhWindow.F_获取属性愤怒())
     # mhWindow.F_导航到五庄观()
     # while(True):
     #     point = mhWindow.F_窗口内查找图片('window_xuanzhong.png', confidence=0.95)
@@ -1428,5 +1524,5 @@ if __name__ == "__main__":
     # mhWindow.F_使用飞行旗('傲来国', '女儿村', False)
     # mhWindow.F_打开小地图()
     # print(mhWindow.F_获取小地图坐标())
-    print(mhWindow.F_导航到地狱迷宫三层())
+    # print(mhWindow.F_获取小地图坐标())
 

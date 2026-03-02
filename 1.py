@@ -1,41 +1,35 @@
-import requests
+from paddleocr import PaddleOCR
+import re
 
-def fetch_car_search_results():
-    url = "https://www.finn.no/mobility/search/api/search/SEARCH_ID_CAR_USED"
-    params = {
-        "make": "0.744",
-        "page": "1"
-    }
-    headers = {
-        "Accept": "application/json, text/plain, */*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9",
-        "Connection": "keep-alive",
-        "Host": "www.finn.no",
-        "sec-ch-ua": '"Not:A-Brand";v="99", "Chromium";v="112"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"macOS"',
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 QuarkPC/2.1.0.226"
-    }
+# ① 创建数字字典（只运行一次）
+digit_dict_path = 'digit_dict.txt'
+with open(digit_dict_path, 'w', encoding='utf-8') as f:
+    f.write('\n'.join([str(i) for i in range(10)]))
 
-    try:
-        # 禁用 SSL 验证
-        response = requests.get(url, params=params, headers=headers, verify=False)
-        if response.status_code == 200:
-            json_data = response.json()
-            print("成功获取 JSON 数据：")
-            print(json_data)
-            return json_data
-        else:
-            print(f"请求失败，状态码：{response.status_code}")
-            print(f"响应内容：{response.text}")
-            return None
-    except requests.exceptions.RequestException as e:
-        print(f"请求异常：{e}")
-        return None
+# ② 初始化OCR —— 极简数字模式
+# ocr = PaddleOCR(
+#     lang='en',                  # 使用英文轻量模型
+#     rec_char_dict_path=digit_dict_path,  # 限定识别字符集
+#     use_angle_cls=False,        # 关闭方向分类，加速
+#     det_db_box_thresh=0.5,      # 保守框阈值
+#     rec_image_height=32,        # 降低识别输入尺寸，加速
+#     use_gpu=False               # 如果有GPU可改成 True
+# )
 
-if __name__ == "__main__":
-    fetch_car_search_results()
+ocr = PaddleOCR( 
+                det_db_thresh=0.3, 
+                det_db_box_thresh=0.5, 
+                rec_image_height=10,  
+                use_angle_cls=False,
+                rec_model_dir='models/ch_number_mobile_v2.0_rec_infer',
+                det_model_dir='models/ch_number_mobile_v2.0_det_infer',
+                rec_char_dict_path='number_dict.txt'
+                )
+
+# ③ 识别图片
+result = ocr.ocr('1.png', cls=False)
+
+# ④ 提取识别结果
+for line in result:
+    text = line[1][0]
+    print("识别文本:", text)

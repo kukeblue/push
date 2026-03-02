@@ -102,7 +102,7 @@ def login(account):
     pyautogui.click()
 
 
-
+time.sleep(3)
 login('c*om1@163.com')
 pyautogui.hotkey('ctrl', 'tab')
 time.sleep(1)

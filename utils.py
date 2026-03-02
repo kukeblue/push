@@ -7,7 +7,13 @@ import win32con
 from win32com.client import Dispatch
 from  fonts.index import fontConfigs
 from aip import AipOcr
+import os
 
+# 临时清除代理环境变量
+os.environ.pop('HTTP_PROXY', None)
+os.environ.pop('HTTPS_PROXY', None)
+os.environ.pop('http_proxy', None)
+os.environ.pop('https_proxy', None)
 
 client = AipOcr('28169102', 'TlqWuTLLPyVnoMAILQQnhQU1','KjuqBgCrsuPXc0ENuvZQ0ahrOsmpaYhR')
 projectPath = '.'  # 运行文件的地址
@@ -21,7 +27,7 @@ class Utils:
     def bindHandle(self):
         real = pyautogui.position()
         self.handle = win32gui.WindowFromPoint((real[0], real[1]))
-        print('当前鼠标下窗口handle为' + str(self.handle))
+        # print('当前鼠标下窗口handle为' + str(self.handle))
 
     # 鼠标移动
     def move(self, x, y):
@@ -95,21 +101,22 @@ class Utils:
         return ret
 
 if __name__ == "__main__":
+    # s = dm.Ocr(64,494,92,511,"000000-000000",1.0)
     print('程序启动后等待3秒，这3秒可以把鼠标切到游戏')
     time.sleep(3)
     utils = Utils()
     utils.bindHandle()
-    utils.move(50, 50)
-    time.sleep(3)
+    # utils.move(50, 50)
+    # time.sleep(3)
     # 测试鼠标双击
-    utils.click()
+    # utils.click()
     # 测试全屏找图
-    ret = utils.findPicture("window_left_sign.png")
-    print(ret)
-    ret = utils.opOcrFont([0, 0, 300, 300], fontConfigs['地图测试'])
+    # ret = utils.findPicture("window_left_sign.png")
+    # print(ret)
+    ret = utils.opOcrFont([62, 375, 64, 17], fontConfigs['属性文字集'])
     print('识别文字：' ,ret)
-    ret = utils.opFindFont([0, 0, 300, 300], fontConfigs['地图测试'], '长安城')
-    print('识别文字位置：' ,ret)
-    ret = utils.baidu通用文字识别([0, 0, 300, 300])
-    print('baidu通用文字识别结果：', ret)
+    # ret = utils.opFindFont([0, 0, 300, 300], fontConfigs['地图测试'], '长安城')
+    # print('识别文字位置：' ,ret)
+    # ret = utils.baidu通用文字识别([0, 0, 300, 300])
+    # print('baidu通用文字识别结果：', ret)
 

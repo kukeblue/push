@@ -16,3 +16,21 @@ IMAGES = {
     "狮子队标": "duibiao.png",
     "天眼通符": "daoju_yan.png"
 }
+
+IMAGES_FENGYAO = {
+    "葫芦宝贝1": "fengyao_hulu1.png",
+    "葫芦宝贝2": "fengyao_hulu2.png",
+    "狂暴1": "fengyao_kuangbao1.png",
+    "狂暴2": "fengyao_kuangbao2.png",
+    "狂暴3": "fengyao_kuangbao3.png",
+    "蝎子1": "fengyao_xiezi1.png",
+    "蝎子2": "fengyao_xiezi2.png",
+    "猫1": "fengyao_mao1.png",
+    "猫2": "fengyao_mao2.png",
+    "混沌兽1": "fengyao_hundun1.png",
+    "封妖刷新": 'fengyaoshuaxing.png',
+    '封妖任务1': 'fengyao_renwu.png',
+    '封妖任务2': 'fengyao_renwu2.png',
+    '封妖任务3': 'fengyao_renwu3.png',
+    '封妖任务4': 'fengyao_renwu4.png',
+}

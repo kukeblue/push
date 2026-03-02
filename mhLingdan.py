@@ -186,6 +186,8 @@ def 杀虫(window, 任务):
     time.sleep(0.5)
     PlaySound("C:\\y913.wav", flags=1)
     window.F_点击战斗()
+    window.F_游戏光标移动到(246, 338)
+    window.utils.click()
     time.sleep(1)
     window.F_铃铛自动战斗()
     window.utils.click()

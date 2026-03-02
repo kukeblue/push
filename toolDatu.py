@@ -8,7 +8,6 @@ import threading
 import pyautogui
 import time 
 import atexit
-import mhZhuagui
 import mhDatu
 from winsound import PlaySound
 projectPath = mhWindow.projectPath

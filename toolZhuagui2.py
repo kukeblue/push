@@ -11,8 +11,8 @@ import atexit
 import mhZhuagui2
 from winsound import PlaySound
 # 禁止控制台输出
-import os
-sys.stdout = open(os.devnull, 'w')
+# import os
+# sys.stdout = open(os.devnull, 'w')
 
 projectPath = mhWindow.projectPath
 exit_event = threading.Event()
