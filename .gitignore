@@ -2,3 +2,9 @@
 /__pycache__/
 /build/
 *spec
+
+# 不提交 yolo，本地也不纳入版本管理
+/yolo/
+
+# 不提交 models
+/models/
